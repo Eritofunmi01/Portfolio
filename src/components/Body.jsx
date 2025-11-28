@@ -28,7 +28,7 @@ useEffect(() => {
 
 
   return (
-    <div className='bg-[#0D1117] md:h-[90vh] h-[120vh] gap-10 grid md:grid-cols-2 grid-cols-1'>
+    <div className='bg-[#0D1117] md:h-[90vh] h-[125vh] gap-10 grid md:grid-cols-2 grid-cols-1'>
       <div className='space-y-2 md:pl-10 pl-4'>
         <motion.p 
           className='text-white pt-[20%] lg:pt-[15%] font-bold font-serif text-md md:text-xl' 
