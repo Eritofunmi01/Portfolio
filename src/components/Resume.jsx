@@ -57,6 +57,15 @@ function Resume() {
             Anchorsoft Academy | 2024 - 2025
           </p>
         </div>
+
+        <div className="bg-[#0D1117] rounded-2xl p-4">
+          <h3 className="bg-linear-to-br from-purple-700 to-green-400 bg-clip-text text-transparent text-lg font-semibold">
+            Data Analysis
+          </h3>
+          <p className="text-gray-300 font-serif mt-1">
+            MUHDUL FURQAAN FOUNDATION | 2025
+          </p>
+        </div>
       </div>
 
       {/* MY SKILLS SECTION */}
