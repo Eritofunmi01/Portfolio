@@ -15,7 +15,6 @@ export default function Header() {
       {/* Desktop Links */}
       <div className='hidden md:flex text-white gap-4 font-sans'>
         <Link to={"/resume"}>Resume</Link>
-        <p>Projects</p>
         <Link to={"/about"}>About</Link>
         <Link to={"/contact"}>Contact</Link>
       </div>
@@ -34,7 +33,6 @@ export default function Header() {
       {menuOpen && (
         <div className='absolute top-16 left-0 w-full bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden'>
           <Link to={"/resume"} className='py-2'>Resume</Link>
-          <Link to={"/"} className='py-2'>Projects</Link>
           <Link to={"/about"} className='py-2'>About</Link>
           <Link to={"/contact"} className='py-2'>Contact</Link>
         </div>
