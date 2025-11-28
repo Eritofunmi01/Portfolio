@@ -33,10 +33,10 @@ export default function Header() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className='absolute top-16 left-0 w-full bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden'>
-          <p className='py-2'>Resume</p>
-          <p className='py-2'>Projects</p>
-          <p className='py-2'>About</p>
-          <p className='py-2'>Contact</p>
+          <Link to={"/resume"} className='py-2'>Resume</Link>
+          <Link to={"/"} className='py-2'>Projects</Link>
+          <Link to={"/about"} className='py-2'>About</Link>
+          <Link to={"/contact"} className='py-2'>Contact</Link>
         </div>
       )}
     </div>

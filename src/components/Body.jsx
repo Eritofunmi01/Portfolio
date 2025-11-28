@@ -67,7 +67,7 @@ useEffect(() => {
       </div>
 
       <div className='w-[70%] pt-20 md:pl-20  '>
-        <img src="/Img/pic1.jpg" className=' ml-15 h-[80%] rounded-full' alt="" />
+        <img src="/Img/pic1.jpg" className=' md:ml-15 ml-15 h-[80%] rounded-full' alt="" />
       </div>
     </div>
   );
