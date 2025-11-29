@@ -13,10 +13,10 @@ function Contact() {
 
     emailjs
       .sendForm(
-        "YOUR_SERVICE_ID", 
-        "YOUR_TEMPLATE_ID",
+        "service_6xe46zp", 
+        "template_zh84dwp",
         form.current,
-        "YOUR_PUBLIC_KEY"
+        "UBbZcsuDMH0kwYrD3"
       )
       .then(
         () => {
