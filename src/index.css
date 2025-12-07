@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@layer base {
+    h1{
+        @apply text-5xl font-extrabold
+    }
+    h2{
+        @apply text-4xl font-bold
+    }
+    h3{
+        @apply text-3xl font-bold
+    }
+    h4{
+        @apply text-2xl font-bold
+    }
+    h5{
+        @apply text-xl font-bold
+    }
+    h6{
+        @apply text-lg font-bold 
+    }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-start infinite;
+}
