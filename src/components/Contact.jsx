@@ -7,7 +7,6 @@ function Contact() {
   const form = useRef();
   const [loading, setLoading] = useState(false);
 
-<<<<<<< HEAD
 const sendEmail = async (e) => {
   e.preventDefault();
   setLoading(true);
@@ -16,7 +15,7 @@ const sendEmail = async (e) => {
     // 1️⃣ Send message to YOU (Admin)
     await emailjs.sendForm(
       "service_6xe46zp",
-      "template_99kj4xg",
+      "contact_admin",
       form.current,
       "UBbZcsuDMH0kwYrD3"
     );
@@ -39,34 +38,8 @@ const sendEmail = async (e) => {
   }
 };
 
-=======
-  const sendEmail = (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    emailjs
-      .sendForm(
-        "service_6xe46zp",
-        "template_zh84dwp",
-        form.current,
-        "UBbZcsuDMH0kwYrD3"
-      )
-      .then(
-        () => {
-          alert("Message Sent Successfully!");
-          form.current.reset();
-          setLoading(false);
-        },
-        () => {
-          alert("Failed to send message. Try again!");
-          setLoading(false);
-        }
-      );
-  };
->>>>>>> f37af6d89eb25df6a8e33f082cffd00c9dc1e8fe
-
   return (
-    <div className="bg-gray-950 text-gray-300 md:h-[125vh] h-[150vh] pb-20">
+    <section className="text-gray-300 md:h-[125vh] h-[150vh] pb-20">
       <div className="text-center p-20 space-y-2">
         <p>Feel free to contact me anytime</p>
         <h2 className="text-3xl font-bold">Get in Touch</h2>
@@ -171,7 +144,7 @@ const sendEmail = async (e) => {
           </div>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
 
