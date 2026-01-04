@@ -7,6 +7,7 @@ function Contact() {
   const form = useRef();
   const [loading, setLoading] = useState(false);
 
+<<<<<<< HEAD
 const sendEmail = async (e) => {
   e.preventDefault();
   setLoading(true);
@@ -38,6 +39,31 @@ const sendEmail = async (e) => {
   }
 };
 
+=======
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .sendForm(
+        "service_6xe46zp",
+        "template_zh84dwp",
+        form.current,
+        "UBbZcsuDMH0kwYrD3"
+      )
+      .then(
+        () => {
+          alert("Message Sent Successfully!");
+          form.current.reset();
+          setLoading(false);
+        },
+        () => {
+          alert("Failed to send message. Try again!");
+          setLoading(false);
+        }
+      );
+  };
+>>>>>>> f37af6d89eb25df6a8e33f082cffd00c9dc1e8fe
 
   return (
     <div className="bg-gray-950 text-gray-300 md:h-[125vh] h-[150vh] pb-20">
