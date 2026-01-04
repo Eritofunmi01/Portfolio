@@ -7,39 +7,40 @@ function Contact() {
   const form = useRef();
   const [loading, setLoading] = useState(false);
 
-const sendEmail = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  try {
-    // 1️⃣ Send message to YOU (Admin)
-    await emailjs.sendForm(
-      "service_6xe46zp",
-      "contact_admin",
-      form.current,
-      "UBbZcsuDMH0kwYrD3"
-    );
+    try {
+      // 1️⃣ Send message to Admin
+      await emailjs.sendForm(
+        "service_6xe46zp",
+        "template_99kj4xg", // Admin notification template
+        form.current,
+        "UBbZcsuDMH0kwYrD3"
+      );
 
-    // 2️⃣ Send auto-reply to sender
-    await emailjs.sendForm(
-      "service_6xe46zp",
-      "template_zh84dwp",
-      form.current,
-      "UBbZcsuDMH0kwYrD3"
-    );
+      // 2️⃣ Send auto-reply to sender
+      await emailjs.sendForm(
+        "service_6xe46zp",
+        "template_zh84dwp", // Auto-reply template
+        form.current,
+        "UBbZcsuDMH0kwYrD3"
+      );
 
-    alert("Message sent successfully!");
-    form.current.reset();
-  } catch (error) {
-    console.error("EmailJS error:", error);
-    alert("Failed to send message. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+      alert("Message sent successfully!");
+      form.current.reset();
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className="text-gray-300 md:h-[125vh] h-[150vh] pb-20">
+      {/* Header */}
       <div className="text-center p-20 space-y-2">
         <p>Feel free to contact me anytime</p>
         <h2 className="text-3xl font-bold">Get in Touch</h2>
@@ -48,7 +49,6 @@ const sendEmail = async (e) => {
       <div className="grid md:grid-cols-2 gap-12 md:px-20 px-8">
         {/* ================= LEFT SIDE FORM ================= */}
         <motion.div
-          className=""
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
