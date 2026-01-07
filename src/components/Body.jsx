@@ -25,7 +25,7 @@ function Body() {
 
   return (
     <div
-      className="md:h-[99vh] h-full relative"
+      className="md:h-[80vh] h-[102vh] relative"
       style={{
         backgroundImage: `url(${HeroBg})`,
         backgroundSize: 'cover',
@@ -64,7 +64,7 @@ function Body() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="absolute top-16 z-10 left-0 w-full bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden">
+        <div className="absolute top-16 z-20 left-0 w-full bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden">
           <Link to={"/resume"} className="py-2">
             Resume
           </Link>
@@ -116,9 +116,9 @@ function Body() {
         </motion.div>
       </div>
 
-      <div className='w-[70%] pt-20 md:pl-20 relative z-10'>
+      {/* <div className='w-[70%] pt-20 md:pl-20 relative z-10'>
         <img src="/Img/pic1.jpg" className=' md:ml-15 ml-15 h-[80%] rounded-full' alt="" />
-      </div>
+      </div> */}
     </div>
     </div>
   );
