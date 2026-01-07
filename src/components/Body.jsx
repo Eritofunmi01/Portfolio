@@ -35,6 +35,48 @@ function Body() {
       {/* Optional dark overlay for readability */}
       <div className="absolute inset-0 bg-[#0D1117]/70"></div>
 
+    <div className="flex justify-between items-center px-5 md:px-10">
+      {/* Logo */}
+      <Link
+        to={"/"}
+        className="font-serif text-4xl font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
+      >
+        SODIX
+      </Link>
+
+      {/* Desktop Links */}
+      <div className="hidden md:flex text-white gap-4 font-sans">
+        <Link to={"/resume"}>Resume</Link>
+        <Link to={"/about"}>About</Link>
+        <Link to={"/contact"}>Contact</Link>
+      </div>
+
+      {/* Mobile Menu Button */}
+      <div className="md:hidden flex items-center">
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="text-white focus:outline-none"
+        >
+          {menuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="absolute top-16 left-0 w-full bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden">
+          <Link to={"/resume"} className="py-2">
+            Resume
+          </Link>
+          <Link to={"/about"} className="py-2">
+            About
+          </Link>
+          <Link to={"/contact"} className="py-2">
+            Contact
+          </Link>
+        </div>
+      )}
+    </div>
+
       <div className="space-y-2 md:pl-10 pl-4 relative z-10">
         <motion.p 
           className='text-white pt-[20%] lg:pt-[15%] font-bold font-serif text-md md:text-xl' 
