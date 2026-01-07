@@ -27,7 +27,7 @@ function Body() {
 
   return (
     <div
-      className="h-screen relative"
+      className="h-[110vh] lg:h-[101vh]   relative"
       style={{
         backgroundImage: `url(${HeroBg})`,
         backgroundSize: 'cover',
@@ -72,7 +72,7 @@ function Body() {
       </div>
 
       {/* HERO CONTENT */}
-      <div className="relative z-10 h-full flex items-center justify-center px-4">
+      <div className="relative z-10  flex items-center justify-center px-4">
         <div className="max-w-3xl text-center space-y-4">
           <motion.p
             className="text-white font-bold font-serif text-md md:text-xl"
@@ -126,7 +126,7 @@ function Body() {
       </div>
 
       {/* SOCIAL LINKS – Bottom Right */}
-      <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-20">
+      <div className="fixed bottom-6 right-6 flex md:flex-col gap-4 z-20">
         <a
           href="https://www.linkedin.com/in/YOUR-LINK"
           target="_blank"
