@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiMenu, HiX } from "react-icons/hi";
-import { FaLinkedinIn, FaXTwitter, FaWhatsapp } from "react-icons/fa6";
+import { FaLinkedinIn, FaXTwitter, FaWhatsapp, FaGitbub } from "react-icons/fa6";
 import { useNavigate, Link } from 'react-router';
 import HeroBg from '/Img/hbg.png';
 
@@ -117,7 +117,7 @@ function Body() {
 
             <button
               onClick={() => navigate("/resume")}
-              className="px-5 py-2 rounded-full border-white border-2 font-serif bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent hover:text-black"
+              className="px-5 py-2 rounded-full border-white border-2 font-serif bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
             >
               View Resume
             </button>
@@ -128,7 +128,7 @@ function Body() {
       {/* SOCIAL LINKS – Bottom Right */}
       <div className="fixed bottom-6 right-6 flex md:flex-col gap-4 z-20">
         <a
-          href="https://www.linkedin.com/in/YOUR-LINK"
+          href="https://www.linkedin.com/in/sodiya-tofunmi-644737379"
           target="_blank"
           className="p-3 rounded-full bg-[#0D1117] border border-gray-700 text-white hover:bg-green-400 hover:text-black transition"
         >
@@ -136,7 +136,15 @@ function Body() {
         </a>
 
         <a
-          href="https://x.com/YOUR-HANDLE"
+          href="https://github.com/Eritofunmi01"
+          target="_blank"
+          className="p-3 rounded-full bg-[#0D1117] border border-gray-700 text-white hover:bg-green-400 hover:text-black transition"
+        >
+          <FaGithub size={18} />
+        </a>
+
+        <a
+          href="https://x.com/The_YoungDev"
           target="_blank"
           className="p-3 rounded-full bg-[#0D1117] border border-gray-700 text-white hover:bg-purple-600 transition"
         >
