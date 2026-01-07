@@ -25,7 +25,7 @@ function Body() {
 
   return (
     <div
-      className="md:h-[99vh] h-[150vh] relative"
+      className="md:h-[99vh] h-full relative"
       style={{
         backgroundImage: `url(${HeroBg})`,
         backgroundSize: 'cover',
@@ -56,7 +56,7 @@ function Body() {
       <div className="md:hidden flex items-center">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="text-white focus:outline-none"
+          className="text-white z-10 focus:outline-none"
         >
           {menuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
         </button>
