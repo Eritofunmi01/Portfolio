@@ -36,11 +36,11 @@ function Body() {
       {/* Optional dark overlay for readability */}
       <div className="absolute inset-0 bg-[#0D1117]/70"></div>
 
-    <div className="flex px-5 z-10 md:px-10">
+    <div className="flex px-5 z-20 md:px-10">
       {/* Logo */}
       <Link
         to={"/"}
-        className="font-serif text-4xl pl-30 font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
+        className="font-serif text-4xl pl-8 mt-5 pr-20 font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
       >
         SODIX
       </Link>
