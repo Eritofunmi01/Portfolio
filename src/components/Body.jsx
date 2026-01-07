@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiMenu, HiX } from "react-icons/hi";
-import { FaLinkedinIn, FaXTwitter, FaWhatsapp, FaGitbub } from "react-icons/fa6";
+import { FaLinkedinIn, FaXTwitter, FaWhatsapp, FaGithub } from "react-icons/fa6";
 import { useNavigate, Link } from 'react-router';
 import HeroBg from '/Img/hbg.png';
 
