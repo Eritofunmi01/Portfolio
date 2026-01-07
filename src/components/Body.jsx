@@ -25,7 +25,7 @@ function Body() {
 
   return (
     <div
-      className="md:h-[99vh] h-[150vh] gap-10 grid md:grid-cols-2 grid-cols-1 relative"
+      className="md:h-[99vh] h-[150vh] relative"
       style={{
         backgroundImage: `url(${HeroBg})`,
         backgroundSize: 'cover',
@@ -46,7 +46,7 @@ function Body() {
       </Link>
 
       {/* Desktop Links */}
-      <div className="hidden md:flex text-white gap-4 font-sans">
+      <div className="hidden md:flex text-white mt-4 justify-items-end gap-4 font-sans">
         <Link to={"/resume"}>Resume</Link>
         <Link to={"/about"}>About</Link>
         <Link to={"/contact"}>Contact</Link>
@@ -78,7 +78,8 @@ function Body() {
       )}
     </div>
 
-      <div className="space-y-2 md:pl-10 pl-4 relative z-10">
+    <div className='gap-10 grid md:grid-cols-2 grid-cols-1'>
+            <div className="space-y-2 md:pl-10 pl-4 relative z-10">
         <motion.p 
           className='text-white pt-[20%] lg:pt-[15%] font-bold font-serif text-md md:text-xl' 
           initial={{y:20, opacity:0}} 
@@ -118,6 +119,7 @@ function Body() {
       <div className='w-[70%] pt-20 md:pl-20 relative z-10'>
         <img src="/Img/pic1.jpg" className=' md:ml-15 ml-15 h-[80%] rounded-full' alt="" />
       </div>
+    </div>
     </div>
   );
 }
