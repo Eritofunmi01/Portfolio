@@ -27,7 +27,7 @@ function Body() {
 
   return (
     <div
-      className="h-[110vh] lg:h-[101vh]   relative"
+      className="h-[105vh] lg:h-[101vh]   relative"
       style={{
         backgroundImage: `url(${HeroBg})`,
         backgroundSize: 'cover',
@@ -72,7 +72,7 @@ function Body() {
       </div>
 
       {/* HERO CONTENT */}
-      <div className="relative z-10  flex items-center justify-center px-4">
+      <div className="relative z-10 pt-20 flex items-center justify-center px-4">
         <div className="max-w-3xl text-center space-y-4">
           <motion.p
             className="text-white font-bold font-serif text-md md:text-xl"
