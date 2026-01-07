@@ -39,7 +39,7 @@ function Contact() {
   };
 
   return (
-    <section className="text-gray-300 md:h-[125vh] h-[150vh] pb-20">
+    <section className="text-gray-300 bg-[#0D1117] md:h-[125vh] h-[150vh] pb-20">
       {/* Header */}
       <div className="text-center p-20 space-y-2">
         <p>Feel free to contact me anytime</p>
