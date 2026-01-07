@@ -25,7 +25,7 @@ function Body() {
 
   return (
     <div
-      className="md:h-[101vh] h-[90vh] relative"
+      className="md:h-[101vh] h-[99vh] relative"
       style={{
         backgroundImage: `url(${HeroBg})`,
         backgroundSize: 'cover',
@@ -40,7 +40,7 @@ function Body() {
       {/* Logo */}
       <Link
         to={"/"}
-        className="font-serif z-10 text-4xl md:pl-8 mt-4 md:pr-20 font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
+        className="font-serif z-10 text-4xl md:pl-8 mt-4 md:pr-20 pr-[80%] font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
       >
         SODIX
       </Link>
