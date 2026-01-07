@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
+import HeroBg from '/Img/hbg.png';
 
 function Body() {
   const fullText = "  I'm a full-stack web developer capable of turning ideas into sleek, functional websites and apps. I create digital experiences that look great, work flawlessly, and deliver real results. Let's build something amazing together.";
@@ -8,28 +9,33 @@ function Body() {
 
   const navigate = useNavigate();
 
-useEffect(() => {
-  let index = 0;
-  const interval = setInterval(() => {
-
-    if (index >= fullText.length) {
-      clearInterval(interval);
-      return;
-    }
-
-    setDisplayedText(prev => prev + fullText.charAt(index));
-    index++;
-
-  }, 20);
-
-  return () => clearInterval(interval);
-}, []);
-
-
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index >= fullText.length) {
+        clearInterval(interval);
+        return;
+      }
+      setDisplayedText(prev => prev + fullText.charAt(index));
+      index++;
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className='bg-[#0D1117] md:h-[99vh] h-[150vh] gap-10 grid md:grid-cols-2 grid-cols-1'>
-      <div className='space-y-2 md:pl-10 pl-4'>
+    <div
+      className="md:h-[99vh] h-[150vh] gap-10 grid md:grid-cols-2 grid-cols-1 relative"
+      style={{
+        backgroundImage: `url(${HeroBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Optional dark overlay for readability */}
+      <div className="absolute inset-0 bg-[#0D1117]/70"></div>
+
+      <div className="space-y-2 md:pl-10 pl-4 relative z-10">
         <motion.p 
           className='text-white pt-[20%] lg:pt-[15%] font-bold font-serif text-md md:text-xl' 
           initial={{y:20, opacity:0}} 
@@ -66,7 +72,7 @@ useEffect(() => {
         </motion.div>
       </div>
 
-      <div className='w-[70%] pt-20 md:pl-20  '>
+      <div className='w-[70%] pt-20 md:pl-20 relative z-10'>
         <img src="/Img/pic1.jpg" className=' md:ml-15 ml-15 h-[80%] rounded-full' alt="" />
       </div>
     </div>
