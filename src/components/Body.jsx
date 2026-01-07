@@ -36,17 +36,17 @@ function Body() {
       {/* Optional dark overlay for readability */}
       <div className="absolute inset-0 bg-[#0D1117]/70"></div>
 
-    <div className="flex px-5 z-20 md:px-10">
+    <div className="flex px-5 md:px-10">
       {/* Logo */}
       <Link
         to={"/"}
-        className="font-serif text-4xl pl-8 mt-4 pr-20 font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
+        className="font-serif z-10 text-4xl pl-8 mt-4 pr-20 font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
       >
         SODIX
       </Link>
 
       {/* Desktop Links */}
-      <div className="hidden md:flex text-white mt-4 pl-[80%] gap-4 font-sans">
+      <div className="hidden md:flex text-white mt-4 pl-[65%] gap-4 z-10 font-sans">
         <Link to={"/resume"}>Resume</Link>
         <Link to={"/about"}>About</Link>
         <Link to={"/contact"}>Contact</Link>
@@ -64,7 +64,7 @@ function Body() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden">
+        <div className="absolute top-16 z-10 left-0 w-full bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden">
           <Link to={"/resume"} className="py-2">
             Resume
           </Link>
