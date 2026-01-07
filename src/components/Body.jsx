@@ -36,7 +36,7 @@ function Body() {
       {/* Optional dark overlay for readability */}
       <div className="absolute inset-0 bg-[#0D1117]/70"></div>
 
-    <div className="flex justify-between items-center px-5 md:px-10">
+    <div className="flex px-5 md:px-10">
       {/* Logo */}
       <Link
         to={"/"}
