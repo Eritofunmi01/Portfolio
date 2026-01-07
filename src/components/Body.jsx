@@ -40,13 +40,13 @@ function Body() {
       {/* Logo */}
       <Link
         to={"/"}
-        className="font-serif text-4xl pl-8 mt-5 pr-20 font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
+        className="font-serif text-4xl pl-8 mt-4 pr-20 font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
       >
         SODIX
       </Link>
 
       {/* Desktop Links */}
-      <div className="hidden md:flex text-white mt-4 justify-items-end gap-4 font-sans">
+      <div className="hidden md:flex text-white mt-4 pl-[80%] gap-4 font-sans">
         <Link to={"/resume"}>Resume</Link>
         <Link to={"/about"}>About</Link>
         <Link to={"/contact"}>Contact</Link>
