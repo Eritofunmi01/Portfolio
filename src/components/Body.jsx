@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { HiMenu, HiX } from "react-icons/hi";
 import { useNavigate, Link } from 'react-router';
 import HeroBg from '/Img/hbg.png';
 
 function Body() {
   const fullText = "  I'm a full-stack web developer capable of turning ideas into sleek, functional websites and apps. I create digital experiences that look great, work flawlessly, and deliver real results. Let's build something amazing together.";
   const [displayedText, setDisplayedText] = useState("");
-
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
