@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import HeroBg from '/Img/hbg.png';
 
 function Body() {
