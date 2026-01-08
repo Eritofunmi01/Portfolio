@@ -39,7 +39,7 @@ function Body() {
       <div className="absolute inset-0 bg-[#0D1117]/70"></div>
 
       {/* NAV */}
-      <div className="flex px-5 md:px-10 relative z-10">
+      <div className="flex px-5 md:px-10 relative z-30">
         <Link
           to={"/"}
           className="font-serif text-4xl md:pl-8 mt-4 font-bold bg-linear-to-bl from-purple-700 to-green-400 bg-clip-text text-transparent"
