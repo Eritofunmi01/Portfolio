@@ -63,7 +63,7 @@ function Body() {
         </div>
 
         {menuOpen && (
-          <div className="absolute top-16 left-0 w-full z-20 bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden">
+          <div className="absolute top-16 left-0 w-full z-40 bg-[#0D1117] flex flex-col text-white items-center py-4 md:hidden">
             <Link to={"/resume"} className="py-2">Resume</Link>
             <Link to={"/about"} className="py-2">About</Link>
             <Link to={"/contact"} className="py-2">Contact</Link>
