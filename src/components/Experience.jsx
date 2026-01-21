@@ -2,18 +2,11 @@ import React from "react";
 
 const projects = [
   {
-    name: "DesignAI",
+    name: "Murse.AY",
     description:
-      "An AI-powered social media design assistant for captions, thumbnails, and post ideas.",
-    liveUrl: "https://designai.app",
-    githubUrl: "https://github.com/your-username/designai",
-  },
-  {
-    name: "Creator Blog Platform",
-    description:
-      "A full-stack blogging platform with subscriptions, author upgrades, and admin dashboard.",
-    liveUrl: "https://yourblogapp.com",
-    githubUrl: "https://github.com/your-username/blog-platform",
+      "A portfolio website for a nurse practitioner, showcasing services, testimonials, and contact info.",
+    liveUrl: "https://murseay-nu.vercel.app/",
+    githubUrl: "https://github.com/Eritofunmi01/nurse_portfolio",
   },
 ];
 

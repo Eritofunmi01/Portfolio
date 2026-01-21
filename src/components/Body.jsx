@@ -51,6 +51,7 @@ function Body() {
           <Link to={"/resume"}>Resume</Link>
           <Link to={"/about"}>About</Link>
           <Link to={"/contact"}>Contact</Link>
+          <Link to={"/experience"}>Experience</Link>
         </div>
 
         <div className="md:hidden flex items-center ml-auto">
