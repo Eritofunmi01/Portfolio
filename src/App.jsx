@@ -5,6 +5,7 @@ import Body from './components/Body'
 import Resume from './components/Resume'
 import Contact from './components/Contact'
 import About from './components/About'
+import Experience from './components/Experience'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -32,6 +33,13 @@ function App() {
           <>
             <Header />
             <Contact />
+          </>
+        } />
+
+        <Route path='/experience' element={
+          <>
+            <Header />
+            <Experience />
           </>
         } />
 
