@@ -51,7 +51,6 @@ function Body() {
           <Link to={"/resume"}>Resume</Link>
           <Link to={"/about"}>About</Link>
           <Link to={"/contact"}>Contact</Link>
-          <Link to={"/experience"}>Experience</Link>
         </div>
 
         <div className="md:hidden flex items-center ml-auto">
@@ -68,7 +67,6 @@ function Body() {
             <Link to={"/resume"} className="py-2">Resume</Link>
             <Link to={"/about"} className="py-2">About</Link>
             <Link to={"/contact"} className="py-2">Contact</Link>
-            <Link to={"/experience"} className="py-2">Experience</Link>
           </div>
         )}
       </div>
