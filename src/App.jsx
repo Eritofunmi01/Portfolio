@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect, useRef } from "react";
 import Nav        from "./components/Nav";
 import Hero       from "./components/Hero";
@@ -8,16 +7,6 @@ import Experience from "./components/Experience";
 import Contact    from "./components/Contact";
 import Footer     from "./components/Footer";
 import "./index.css";
-=======
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router'
-import Header from './components/Header'
-import Body from './components/Body'
-import Resume from './components/Resume'
-import Contact from './components/Contact'
-import About from './components/About'
-
->>>>>>> caac7e88ac9fe47ce3178312f114c90ed9d268ad
 
 /* ── Ambient floating particles ── */
 const PARTICLES = Array.from({ length: 22 }, (_, i) => ({
@@ -31,7 +20,6 @@ const PARTICLES = Array.from({ length: 22 }, (_, i) => ({
 
 function Particles() {
   return (
-<<<<<<< HEAD
     <div style={{
       position: "fixed", inset: 0,
       pointerEvents: "none", zIndex: 0, overflow: "hidden",
@@ -53,46 +41,6 @@ function Particles() {
       ))}
     </div>
   );
-=======
-    <>
-    <Router>
-      <Routes>
-
-        <Route path='/' element={
-          <>
-            {/* <Header/> */}
-            <Body />
-          </>
-        } />
-
-        <Route path='/resume' element={
-          <>
-            <Header />
-            <Resume />
-          </>
-        } />
-
-        <Route path='/contact' element={
-          <>
-            <Header />
-            <Contact />
-          </>
-        } />
-
-        
-
-        <Route path='/about' element={
-          <>
-            <Header />
-            <About />
-          </>
-        } />
-
-      </Routes>
-    </Router>
-    </>
-  )
->>>>>>> caac7e88ac9fe47ce3178312f114c90ed9d268ad
 }
 
 /* ── Cursor glow that tracks mouse ── */
