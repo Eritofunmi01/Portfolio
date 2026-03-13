@@ -1,151 +1,404 @@
-import React, { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { Mail, User, MessageSquare, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Zap } from "lucide-react";
+import { FaLinkedinIn, FaGithub, FaXTwitter, FaWhatsapp } from "react-icons/fa6";
 
-function Contact() {
-  const form = useRef();
+/* ── EmailJS config — same as your original ── */
+const EMAILJS_SERVICE  = "service_6xe46zp";
+const EMAILJS_ADMIN    = "template_99kj4xg";   // admin notification
+const EMAILJS_AUTOREPLY = "template_zh84dwp";  // auto-reply to sender
+const EMAILJS_PUBLIC   = "UBbZcsuDMH0kwYrD3";
+
+const CONTACT_ITEMS = [
+  { icon: <Phone  size={18} />, label: "Phone",    value: "+234 806 906 2202",              color: "#00FFB2" },
+  { icon: <Mail   size={18} />, label: "Email",    value: "sodiyaeritofunmi15@gmail.com",   color: "#A78BFA" },
+  { icon: <MapPin size={18} />, label: "Location", value: "Lagos, Nigeria",                  color: "#FB923C" },
+];
+
+const SOCIALS = [
+  {
+    icon:  <FaLinkedinIn size={16} />,
+    label: "LinkedIn",
+    href:  "https://www.linkedin.com/in/sodiya-tofunmi-644737379",
+    color: "#0077B5",
+  },
+  {
+    icon:  <FaGithub size={16} />,
+    label: "GitHub",
+    href:  "https://github.com/Eritofunmi01",
+    color: "#00FFB2",
+  },
+  {
+    icon:  <FaXTwitter size={16} />,
+    label: "X / Twitter",
+    href:  "https://x.com/The_YoungDev",
+    color: "#1DA1F2",
+  },
+  {
+    icon:  <FaWhatsapp size={16} />,
+    label: "WhatsApp",
+    href:  "https://wa.me/2348069062202",
+    color: "#25D366",
+  },
+];
+
+function Reveal({ children, delay = 0 }) {
+  const ref    = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 32 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function Contact() {
+  const form    = useRef();
   const [loading, setLoading] = useState(false);
+  const [sent,    setSent]    = useState(false);
+  const [error,   setError]   = useState(false);
 
   const sendEmail = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(false);
 
     try {
-      // 1️⃣ Send message to Admin
+      /* Send admin notification */
       await emailjs.sendForm(
-        "service_6xe46zp",
-        "template_99kj4xg", // Admin notification template
+        EMAILJS_SERVICE,
+        EMAILJS_ADMIN,
         form.current,
-        "UBbZcsuDMH0kwYrD3"
+        EMAILJS_PUBLIC,
       );
 
-      // 2️⃣ Send auto-reply to sender
+      /* Send auto-reply to the person who filled the form */
       await emailjs.sendForm(
-        "service_6xe46zp",
-        "template_zh84dwp", // Auto-reply template
+        EMAILJS_SERVICE,
+        EMAILJS_AUTOREPLY,
         form.current,
-        "UBbZcsuDMH0kwYrD3"
+        EMAILJS_PUBLIC,
       );
 
-      alert("Message sent successfully!");
+      setSent(true);
       form.current.reset();
-    } catch (error) {
-      console.error("EmailJS error:", error);
-      alert("Failed to send message. Please try again.");
+      setTimeout(() => setSent(false), 6000);
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setError(true);
+      setTimeout(() => setError(false), 5000);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="text-gray-300 bg-[#0D1117] md:h-[125vh] h-[150vh] pb-20">
-      {/* Header */}
-      <div className="text-center p-20 space-y-2">
-        <p>Feel free to contact me anytime</p>
-        <h2 className="text-3xl font-bold">Get in Touch</h2>
-      </div>
+    <div className="section-wrap">
 
-      <div className="grid md:grid-cols-2 gap-12 md:px-20 px-8">
-        {/* ================= LEFT SIDE FORM ================= */}
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
+      {/* ── Heading ── */}
+      <Reveal>
+        <p className="section-label" style={{ marginBottom: "1rem" }}>// reach out</p>
+        <h2
+          className="display-text"
+          style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)", marginBottom: "1rem" }}
         >
-          <form ref={form} onSubmit={sendEmail} className="space-y-5">
-            <h5 className="text-xl font-semibold">Message Me</h5>
+          LET'S <span className="gradient-text">TALK</span>
+        </h2>
+        <p style={{ color: "var(--muted)", maxWidth: 520, lineHeight: 1.8, marginBottom: "3.5rem" }}>
+          Have a project in mind? Looking to collaborate or just want to say hi? I'm
+          always open to the right opportunity — drop me a message.
+        </p>
+      </Reveal>
 
-            {/* Name */}
-            <div className="flex items-center gap-2 bg-gray-800 border border-gray-700 p-2 rounded-lg">
-              <User size={18} className="text-gray-400" />
-              <input
-                name="user_name"
-                type="text"
-                required
-                className="w-full bg-transparent outline-none text-white"
-                placeholder="Name"
-              />
-            </div>
+      {/* ── Two-column layout ── */}
+      <div
+        style={{
+          display:             "grid",
+          gridTemplateColumns: "1.25fr 1fr",
+          gap:                 "2rem",
+          alignItems:          "flex-start",
+        }}
+      >
 
-            {/* Email */}
-            <div className="flex items-center gap-2 bg-gray-800 border border-gray-700 p-2 rounded-lg">
-              <Mail size={18} className="text-gray-400" />
-              <input
-                name="user_email"
-                type="email"
-                required
-                className="w-full bg-transparent outline-none text-white"
-                placeholder="Email"
-              />
-            </div>
+        {/* ── LEFT: form ── */}
+        <Reveal delay={0.1}>
+          <div className="glass-card" style={{ padding: "2.5rem" }}>
+            <h3 style={{ fontWeight: 600, fontSize: "1.1rem", marginBottom: "1.75rem" }}>
+              Send a message
+            </h3>
 
-            {/* Subject */}
-            <div className="flex items-center gap-2 bg-gray-800 border border-gray-700 p-2 rounded-lg">
-              <MessageSquare size={18} className="text-gray-400" />
-              <input
-                name="subject"
-                type="text"
-                required
-                className="w-full bg-transparent outline-none text-white"
-                placeholder="Subject"
-              />
-            </div>
+            {/* Success toast */}
+            <AnimatePresence>
+              {sent && (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                  animate={{ opacity: 1, height: "auto", marginBottom: "1.5rem" }}
+                  exit={{    opacity: 0, height: 0, marginBottom: 0 }}
+                  style={{
+                    padding:      "1rem 1.25rem",
+                    borderRadius: 10,
+                    background:   "rgba(0,255,178,0.07)",
+                    border:       "1px solid rgba(0,255,178,0.28)",
+                    color:        "var(--mint)",
+                    fontFamily:   "var(--font-mono)",
+                    fontSize:     "0.82rem",
+                    display:      "flex",
+                    alignItems:   "center",
+                    gap:          "0.75rem",
+                    overflow:     "hidden",
+                  }}
+                >
+                  <Zap size={15} />
+                  Message sent! I'll get back to you soon ✓
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-            {/* Message */}
-            <textarea
-              name="message"
-              required
-              className="w-full bg-gray-800 border border-gray-700 p-2 rounded-lg outline-none text-white"
-              placeholder="Message"
-              rows={5}
-            ></textarea>
+            {/* Error toast */}
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  key="error"
+                  initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                  animate={{ opacity: 1, height: "auto", marginBottom: "1.5rem" }}
+                  exit={{    opacity: 0, height: 0, marginBottom: 0 }}
+                  style={{
+                    padding:      "1rem 1.25rem",
+                    borderRadius: 10,
+                    background:   "rgba(239,68,68,0.07)",
+                    border:       "1px solid rgba(239,68,68,0.28)",
+                    color:        "#F87171",
+                    fontFamily:   "var(--font-mono)",
+                    fontSize:     "0.82rem",
+                    overflow:     "hidden",
+                  }}
+                >
+                  Failed to send. Please try again or email me directly.
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-            {/* Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full p-2 rounded-xl bg-linear-to-r from-purple-600 to-green-400 text-gray-900 font-semibold shadow-lg hover:scale-105 transition disabled:opacity-60"
+            {/* Form */}
+            <form
+              ref={form}
+              onSubmit={sendEmail}
+              style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}
             >
-              {loading ? "Sending..." : "Send Message"}
-            </button>
-          </form>
-        </motion.div>
+              {/* Name + Email side by side */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                <div>
+                  <label style={labelStyle}>Name</label>
+                  <input
+                    name="user_name"
+                    type="text"
+                    required
+                    placeholder="John Doe"
+                    className="input-field"
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Email</label>
+                  <input
+                    name="user_email"
+                    type="email"
+                    required
+                    placeholder="you@email.com"
+                    className="input-field"
+                  />
+                </div>
+              </div>
 
-        {/* ================= RIGHT SIDE CONTACT INFO ================= */}
-        <motion.div
-          className="space-y-6"
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h4 className="text-xl font-semibold">Contact Info</h4>
-          <p className="text-gray-400 leading-relaxed">
-            Always available for freelance work if the right project comes
-            along. Feel free to reach out to me!
-          </p>
+              <div>
+                <label style={labelStyle}>Subject</label>
+                <input
+                  name="subject"
+                  type="text"
+                  required
+                  placeholder="Project Inquiry"
+                  className="input-field"
+                />
+              </div>
 
-          {/* Phone */}
-          <div className="flex items-center gap-3">
-            <Phone size={20} className="text-green-400" />
-            <p className="text-gray-300">+234 806 906 2202</p>
+              <div>
+                <label style={labelStyle}>Message</label>
+                <textarea
+                  name="message"
+                  required
+                  rows={6}
+                  placeholder="Tell me about your project, idea, or just say hello…"
+                  className="input-field"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-primary"
+                style={{ justifyContent: "center" }}
+              >
+                {loading ? (
+                  <>
+                    <span style={spinnerStyle} />
+                    Sending…
+                  </>
+                ) : (
+                  <>
+                    Send Message <Send size={14} />
+                  </>
+                )}
+              </button>
+            </form>
           </div>
+        </Reveal>
 
-          {/* Email */}
-          <div className="flex items-center gap-3">
-            <Mail size={20} className="text-blue-400" />
-            <p className="text-gray-300">sodiyaeritofunmi15@gmail.com</p>
-          </div>
+        {/* ── RIGHT: contact info + socials ── */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
 
-          {/* Location */}
-          <div className="flex items-center gap-3">
-            <MapPin size={20} className="text-red-400" />
-            <p className="text-gray-300">Lagos, Nigeria</p>
-          </div>
-        </motion.div>
+          {/* Contact cards */}
+          {CONTACT_ITEMS.map((item, i) => (
+            <Reveal key={item.label} delay={0.15 + i * 0.08}>
+              <div
+                className="glass-card"
+                style={{
+                  padding:    "1.5rem",
+                  display:    "flex",
+                  alignItems: "center",
+                  gap:        "1.2rem",
+                }}
+              >
+                <div
+                  style={{
+                    width:          44,
+                    height:         44,
+                    borderRadius:   12,
+                    background:     `${item.color}12`,
+                    border:         `1px solid ${item.color}28`,
+                    display:        "flex",
+                    alignItems:     "center",
+                    justifyContent: "center",
+                    color:          item.color,
+                    flexShrink:     0,
+                  }}
+                >
+                  {item.icon}
+                </div>
+                <div>
+                  <p
+                    style={{
+                      fontFamily:    "var(--font-mono)",
+                      fontSize:      "0.65rem",
+                      color:         "var(--muted)",
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      marginBottom:  "0.2rem",
+                    }}
+                  >
+                    {item.label}
+                  </p>
+                  <p style={{ fontSize: "0.92rem", wordBreak: "break-all" }}>{item.value}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+
+          {/* Social grid */}
+          <Reveal delay={0.4}>
+            <div className="glass-card" style={{ padding: "1.5rem" }}>
+              <p
+                style={{
+                  fontFamily:    "var(--font-mono)",
+                  fontSize:      "0.65rem",
+                  color:         "var(--muted)",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  marginBottom:  "1.25rem",
+                }}
+              >
+                Connect
+              </p>
+
+              <div
+                style={{
+                  display:             "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap:                 "0.75rem",
+                }}
+              >
+                {SOCIALS.map((s, i) => (
+                  <a
+                    key={i}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display:        "flex",
+                      alignItems:     "center",
+                      gap:            "0.6rem",
+                      padding:        "0.75rem 1rem",
+                      borderRadius:   10,
+                      border:         "1px solid var(--border)",
+                      background:     "rgba(255,255,255,0.015)",
+                      color:          "var(--muted)",
+                      fontFamily:     "var(--font-mono)",
+                      fontSize:       "0.72rem",
+                      textDecoration: "none",
+                      transition:     "all 0.22s ease",
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.borderColor = s.color;
+                      e.currentTarget.style.color       = s.color;
+                      e.currentTarget.style.background  = `${s.color}0D`;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor = "var(--border)";
+                      e.currentTarget.style.color       = "var(--muted)";
+                      e.currentTarget.style.background  = "rgba(255,255,255,0.015)";
+                    }}
+                  >
+                    {s.icon}
+                    {s.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </div>
-    </section>
+
+      {/* ── Responsive ── */}
+      <style>{`
+        @media (max-width: 768px) {
+          .contact-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </div>
   );
 }
 
-export default Contact;
+/* ── Shared mini styles ── */
+const labelStyle = {
+  display:       "block",
+  fontFamily:    "var(--font-mono)",
+  fontSize:      "0.68rem",
+  color:         "var(--muted)",
+  letterSpacing: "0.12em",
+  textTransform: "uppercase",
+  marginBottom:  "0.5rem",
+};
+
+const spinnerStyle = {
+  display:      "inline-block",
+  width:        14,
+  height:       14,
+  borderRadius: "50%",
+  border:       "2px solid rgba(0,0,0,0.25)",
+  borderTopColor: "#000",
+  animation:    "spin 0.75s linear infinite",
+};
