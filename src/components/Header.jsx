@@ -20,7 +20,6 @@ export default function Header() {
         <Link to={"/resume"}>Resume</Link>
         <Link to={"/about"}>About</Link>
         <Link to={"/contact"}>Contact</Link>
-        <Link to={"/experience"}>Experience</Link>
       </div>
 
       {/* Mobile Menu Button */}
@@ -44,9 +43,6 @@ export default function Header() {
           </Link>
           <Link to={"/contact"} className="py-2">
             Contact
-          </Link>
-          <Link to={"/experience"} className="py-2">
-            Experience
           </Link>
         </div>
       )}
