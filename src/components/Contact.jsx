@@ -1,55 +1,36 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { Mail, Phone, MapPin, Send, Zap } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Zap, AlertCircle } from "lucide-react";
 import { FaLinkedinIn, FaGithub, FaXTwitter, FaWhatsapp } from "react-icons/fa6";
 
-/* ── EmailJS config — same as your original ── */
-const EMAILJS_SERVICE  = "service_6xe46zp";
-const EMAILJS_ADMIN    = "template_99kj4xg";   // admin notification
-const EMAILJS_AUTOREPLY = "template_zh84dwp";  // auto-reply to sender
-const EMAILJS_PUBLIC   = "UBbZcsuDMH0kwYrD3";
+/* ── EmailJS credentials (unchanged from your original) ── */
+const EJ_SERVICE    = "service_6xe46zp";
+const EJ_ADMIN      = "template_99kj4xg";
+const EJ_AUTOREPLY  = "template_zh84dwp";
+const EJ_PUBLIC_KEY = "UBbZcsuDMH0kwYrD3";
 
 const CONTACT_ITEMS = [
-  { icon: <Phone  size={18} />, label: "Phone",    value: "+234 806 906 2202",              color: "#00FFB2" },
-  { icon: <Mail   size={18} />, label: "Email",    value: "sodiyaeritofunmi15@gmail.com",   color: "#A78BFA" },
-  { icon: <MapPin size={18} />, label: "Location", value: "Lagos, Nigeria",                  color: "#FB923C" },
+  { icon: <Phone  size={18} />, label: "Phone",    value: "+234 806 906 2202",            color: "#00FFB2" },
+  { icon: <Mail   size={18} />, label: "Email",    value: "sodiyaeritofunmi15@gmail.com", color: "#A78BFA" },
+  { icon: <MapPin size={18} />, label: "Location", value: "Lagos, Nigeria",               color: "#FB923C" },
 ];
 
 const SOCIALS = [
-  {
-    icon:  <FaLinkedinIn size={16} />,
-    label: "LinkedIn",
-    href:  "https://www.linkedin.com/in/sodiya-tofunmi-644737379",
-    color: "#0077B5",
-  },
-  {
-    icon:  <FaGithub size={16} />,
-    label: "GitHub",
-    href:  "https://github.com/Eritofunmi01",
-    color: "#00FFB2",
-  },
-  {
-    icon:  <FaXTwitter size={16} />,
-    label: "X / Twitter",
-    href:  "https://x.com/The_YoungDev",
-    color: "#1DA1F2",
-  },
-  {
-    icon:  <FaWhatsapp size={16} />,
-    label: "WhatsApp",
-    href:  "https://wa.me/2348069062202",
-    color: "#25D366",
-  },
+  { icon: <FaLinkedinIn size={15} />, label: "LinkedIn",   href: "https://www.linkedin.com/in/sodiya-tofunmi-644737379", color: "#0077B5" },
+  { icon: <FaGithub    size={15} />, label: "GitHub",     href: "https://github.com/Eritofunmi01",                      color: "#00FFB2" },
+  { icon: <FaXTwitter  size={15} />, label: "X / Twitter",href: "https://x.com/The_YoungDev",                           color: "#1DA1F2" },
+  { icon: <FaWhatsapp  size={15} />, label: "WhatsApp",   href: "https://wa.me/2348069062202",                          color: "#25D366" },
 ];
 
-function Reveal({ children, delay = 0 }) {
+function Reveal({ children, delay = 0, className = "" }) {
   const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 32 }}
+      className={className}
+      initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
@@ -59,7 +40,7 @@ function Reveal({ children, delay = 0 }) {
 }
 
 export default function Contact() {
-  const form    = useRef();
+  const form = useRef();
   const [loading, setLoading] = useState(false);
   const [sent,    setSent]    = useState(false);
   const [error,   setError]   = useState(false);
@@ -68,24 +49,9 @@ export default function Contact() {
     e.preventDefault();
     setLoading(true);
     setError(false);
-
     try {
-      /* Send admin notification */
-      await emailjs.sendForm(
-        EMAILJS_SERVICE,
-        EMAILJS_ADMIN,
-        form.current,
-        EMAILJS_PUBLIC,
-      );
-
-      /* Send auto-reply to the person who filled the form */
-      await emailjs.sendForm(
-        EMAILJS_SERVICE,
-        EMAILJS_AUTOREPLY,
-        form.current,
-        EMAILJS_PUBLIC,
-      );
-
+      await emailjs.sendForm(EJ_SERVICE, EJ_ADMIN,     form.current, EJ_PUBLIC_KEY);
+      await emailjs.sendForm(EJ_SERVICE, EJ_AUTOREPLY, form.current, EJ_PUBLIC_KEY);
       setSent(true);
       form.current.reset();
       setTimeout(() => setSent(false), 6000);
@@ -101,39 +67,30 @@ export default function Contact() {
   return (
     <div className="section-wrap">
 
-      {/* ── Heading ── */}
+      {/* Heading */}
       <Reveal>
-        <p className="section-label" style={{ marginBottom: "1rem" }}>// reach out</p>
+        <p className="section-label mb-3">// reach out</p>
         <h2
-          className="display-text"
-          style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)", marginBottom: "1rem" }}
+          className="font-display leading-none mb-4"
+          style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
         >
           LET'S <span className="gradient-text">TALK</span>
         </h2>
-        <p style={{ color: "var(--muted)", maxWidth: 520, lineHeight: 1.8, marginBottom: "3.5rem" }}>
-          Have a project in mind? Looking to collaborate or just want to say hi? I'm
-          always open to the right opportunity — drop me a message.
+        <p className="text-dim leading-relaxed max-w-[500px] mb-14 text-[0.97rem]">
+          Have a project in mind? Want to collaborate or just say hi? I'm always open
+          to the right opportunity — drop me a message.
         </p>
       </Reveal>
 
-      {/* ── Two-column layout ── */}
-      <div
-        style={{
-          display:             "grid",
-          gridTemplateColumns: "1.25fr 1fr",
-          gap:                 "2rem",
-          alignItems:          "flex-start",
-        }}
-      >
+      {/* Two-column layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
 
-        {/* ── LEFT: form ── */}
+        {/* Form */}
         <Reveal delay={0.1}>
-          <div className="glass-card" style={{ padding: "2.5rem" }}>
-            <h3 style={{ fontWeight: 600, fontSize: "1.1rem", marginBottom: "1.75rem" }}>
-              Send a message
-            </h3>
+          <div className="glass-card p-7 md:p-10">
+            <h3 className="font-semibold text-[1.05rem] mb-7">Send a message</h3>
 
-            {/* Success toast */}
+            {/* Success */}
             <AnimatePresence>
               {sent && (
                 <motion.div
@@ -141,27 +98,17 @@ export default function Contact() {
                   initial={{ opacity: 0, height: 0, marginBottom: 0 }}
                   animate={{ opacity: 1, height: "auto", marginBottom: "1.5rem" }}
                   exit={{    opacity: 0, height: 0, marginBottom: 0 }}
-                  style={{
-                    padding:      "1rem 1.25rem",
-                    borderRadius: 10,
-                    background:   "rgba(0,255,178,0.07)",
-                    border:       "1px solid rgba(0,255,178,0.28)",
-                    color:        "var(--mint)",
-                    fontFamily:   "var(--font-mono)",
-                    fontSize:     "0.82rem",
-                    display:      "flex",
-                    alignItems:   "center",
-                    gap:          "0.75rem",
-                    overflow:     "hidden",
-                  }}
+                  className="overflow-hidden"
                 >
-                  <Zap size={15} />
-                  Message sent! I'll get back to you soon ✓
+                  <div className="flex items-center gap-3 p-4 rounded-xl bg-mint/7 border border-mint/25 text-mint font-mono text-[0.82rem]">
+                    <Zap size={15} className="shrink-0" />
+                    Message sent! I'll get back to you soon ✓
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Error toast */}
+            {/* Error */}
             <AnimatePresence>
               {error && (
                 <motion.div
@@ -169,65 +116,45 @@ export default function Contact() {
                   initial={{ opacity: 0, height: 0, marginBottom: 0 }}
                   animate={{ opacity: 1, height: "auto", marginBottom: "1.5rem" }}
                   exit={{    opacity: 0, height: 0, marginBottom: 0 }}
-                  style={{
-                    padding:      "1rem 1.25rem",
-                    borderRadius: 10,
-                    background:   "rgba(239,68,68,0.07)",
-                    border:       "1px solid rgba(239,68,68,0.28)",
-                    color:        "#F87171",
-                    fontFamily:   "var(--font-mono)",
-                    fontSize:     "0.82rem",
-                    overflow:     "hidden",
-                  }}
+                  className="overflow-hidden"
                 >
-                  Failed to send. Please try again or email me directly.
+                  <div className="flex items-center gap-3 p-4 rounded-xl bg-red-500/7 border border-red-500/25 text-red-400 font-mono text-[0.82rem]">
+                    <AlertCircle size={15} className="shrink-0" />
+                    Failed to send. Please try again.
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Form */}
-            <form
-              ref={form}
-              onSubmit={sendEmail}
-              style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}
-            >
-              {/* Name + Email side by side */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-5">
+
+              {/* Name + Email */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label style={labelStyle}>Name</label>
-                  <input
-                    name="user_name"
-                    type="text"
-                    required
-                    placeholder="John Doe"
-                    className="input-field"
-                  />
+                  <label className="block font-mono text-[0.68rem] text-dim tracking-[0.12em] uppercase mb-2">
+                    Name
+                  </label>
+                  <input name="user_name" type="text" required placeholder="John Doe" className="input-field" />
                 </div>
                 <div>
-                  <label style={labelStyle}>Email</label>
-                  <input
-                    name="user_email"
-                    type="email"
-                    required
-                    placeholder="you@email.com"
-                    className="input-field"
-                  />
+                  <label className="block font-mono text-[0.68rem] text-dim tracking-[0.12em] uppercase mb-2">
+                    Email
+                  </label>
+                  <input name="user_email" type="email" required placeholder="you@email.com" className="input-field" />
                 </div>
               </div>
 
               <div>
-                <label style={labelStyle}>Subject</label>
-                <input
-                  name="subject"
-                  type="text"
-                  required
-                  placeholder="Project Inquiry"
-                  className="input-field"
-                />
+                <label className="block font-mono text-[0.68rem] text-dim tracking-[0.12em] uppercase mb-2">
+                  Subject
+                </label>
+                <input name="subject" type="text" required placeholder="Project Inquiry" className="input-field" />
               </div>
 
               <div>
-                <label style={labelStyle}>Message</label>
+                <label className="block font-mono text-[0.68rem] text-dim tracking-[0.12em] uppercase mb-2">
+                  Message
+                </label>
                 <textarea
                   name="message"
                   required
@@ -240,12 +167,13 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary"
-                style={{ justifyContent: "center" }}
+                className="btn-primary justify-center w-full"
               >
                 {loading ? (
                   <>
-                    <span style={spinnerStyle} />
+                    <span
+                      className="w-3.5 h-3.5 rounded-full border-2 border-void/30 border-t-void inline-block animate-spin"
+                    />
                     Sending…
                   </>
                 ) : (
@@ -258,108 +186,56 @@ export default function Contact() {
           </div>
         </Reveal>
 
-        {/* ── RIGHT: contact info + socials ── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+        {/* Right column */}
+        <div className="flex flex-col gap-4">
 
-          {/* Contact cards */}
+          {/* Contact info cards */}
           {CONTACT_ITEMS.map((item, i) => (
             <Reveal key={item.label} delay={0.15 + i * 0.08}>
-              <div
-                className="glass-card"
-                style={{
-                  padding:    "1.5rem",
-                  display:    "flex",
-                  alignItems: "center",
-                  gap:        "1.2rem",
-                }}
-              >
+              <div className="glass-card p-5 flex items-center gap-4">
                 <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
                   style={{
-                    width:          44,
-                    height:         44,
-                    borderRadius:   12,
-                    background:     `${item.color}12`,
-                    border:         `1px solid ${item.color}28`,
-                    display:        "flex",
-                    alignItems:     "center",
-                    justifyContent: "center",
-                    color:          item.color,
-                    flexShrink:     0,
+                    color:      item.color,
+                    background: `${item.color}12`,
+                    border:     `1px solid ${item.color}28`,
                   }}
                 >
                   {item.icon}
                 </div>
                 <div>
-                  <p
-                    style={{
-                      fontFamily:    "var(--font-mono)",
-                      fontSize:      "0.65rem",
-                      color:         "var(--muted)",
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
-                      marginBottom:  "0.2rem",
-                    }}
-                  >
+                  <p className="font-mono text-[0.65rem] text-dim tracking-[0.18em] uppercase mb-0.5">
                     {item.label}
                   </p>
-                  <p style={{ fontSize: "0.92rem", wordBreak: "break-all" }}>{item.value}</p>
+                  <p className="text-[0.9rem] break-all">{item.value}</p>
                 </div>
               </div>
             </Reveal>
           ))}
 
-          {/* Social grid */}
+          {/* Social links */}
           <Reveal delay={0.4}>
-            <div className="glass-card" style={{ padding: "1.5rem" }}>
-              <p
-                style={{
-                  fontFamily:    "var(--font-mono)",
-                  fontSize:      "0.65rem",
-                  color:         "var(--muted)",
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  marginBottom:  "1.25rem",
-                }}
-              >
+            <div className="glass-card p-5">
+              <p className="font-mono text-[0.65rem] text-dim tracking-[0.18em] uppercase mb-5">
                 Connect
               </p>
-
-              <div
-                style={{
-                  display:             "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap:                 "0.75rem",
-                }}
-              >
+              <div className="grid grid-cols-2 gap-2.5">
                 {SOCIALS.map((s, i) => (
                   <a
                     key={i}
                     href={s.href}
                     target="_blank"
                     rel="noreferrer"
-                    style={{
-                      display:        "flex",
-                      alignItems:     "center",
-                      gap:            "0.6rem",
-                      padding:        "0.75rem 1rem",
-                      borderRadius:   10,
-                      border:         "1px solid var(--border)",
-                      background:     "rgba(255,255,255,0.015)",
-                      color:          "var(--muted)",
-                      fontFamily:     "var(--font-mono)",
-                      fontSize:       "0.72rem",
-                      textDecoration: "none",
-                      transition:     "all 0.22s ease",
-                    }}
+                    className="flex items-center gap-2.5 px-3.5 py-3 rounded-xl border border-mint/10 bg-white/[0.015] text-dim font-mono text-[0.72rem] no-underline transition-all duration-200"
                     onMouseEnter={e => {
                       e.currentTarget.style.borderColor = s.color;
                       e.currentTarget.style.color       = s.color;
                       e.currentTarget.style.background  = `${s.color}0D`;
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.borderColor = "var(--border)";
-                      e.currentTarget.style.color       = "var(--muted)";
-                      e.currentTarget.style.background  = "rgba(255,255,255,0.015)";
+                      e.currentTarget.style.borderColor = "";
+                      e.currentTarget.style.color       = "";
+                      e.currentTarget.style.background  = "";
                     }}
                   >
                     {s.icon}
@@ -371,34 +247,6 @@ export default function Contact() {
           </Reveal>
         </div>
       </div>
-
-      {/* ── Responsive ── */}
-      <style>{`
-        @media (max-width: 768px) {
-          .contact-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </div>
   );
 }
-
-/* ── Shared mini styles ── */
-const labelStyle = {
-  display:       "block",
-  fontFamily:    "var(--font-mono)",
-  fontSize:      "0.68rem",
-  color:         "var(--muted)",
-  letterSpacing: "0.12em",
-  textTransform: "uppercase",
-  marginBottom:  "0.5rem",
-};
-
-const spinnerStyle = {
-  display:      "inline-block",
-  width:        14,
-  height:       14,
-  borderRadius: "50%",
-  border:       "2px solid rgba(0,0,0,0.25)",
-  borderTopColor: "#000",
-  animation:    "spin 0.75s linear infinite",
-};

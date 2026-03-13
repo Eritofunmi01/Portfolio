@@ -1,47 +1,41 @@
 import { useState, useEffect } from "react";
-import { motion }               from "framer-motion";
+import { motion }              from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { FaLinkedinIn, FaGithub, FaXTwitter, FaWhatsapp } from "react-icons/fa6";
 
+/* ── Cycling typewriter ── */
 const TAGLINES = [
   "Turning ideas into sleek, functional web apps.",
   "Full-stack developer. Clean code. Real results.",
   "Building digital experiences that push boundaries.",
 ];
 
-function scrollTo(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-}
-
-/* ── Typewriter that cycles through phrases ── */
 function Typewriter() {
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [displayed,   setDisplayed]   = useState("");
-  const [deleting,    setDeleting]    = useState(false);
+  const [idx,      setIdx]      = useState(0);
+  const [text,     setText]     = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const full = TAGLINES[phraseIndex];
-    let timeout;
-
-    if (!deleting && displayed.length < full.length) {
-      timeout = setTimeout(() => setDisplayed(full.slice(0, displayed.length + 1)), 32);
-    } else if (!deleting && displayed.length === full.length) {
-      timeout = setTimeout(() => setDeleting(true), 2200);
-    } else if (deleting && displayed.length > 0) {
-      timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 18);
-    } else if (deleting && displayed.length === 0) {
+    const full = TAGLINES[idx];
+    let t;
+    if (!deleting && text.length < full.length) {
+      t = setTimeout(() => setText(full.slice(0, text.length + 1)), 32);
+    } else if (!deleting && text.length === full.length) {
+      t = setTimeout(() => setDeleting(true), 2400);
+    } else if (deleting && text.length > 0) {
+      t = setTimeout(() => setText(text.slice(0, -1)), 16);
+    } else {
       setDeleting(false);
-      setPhraseIndex(i => (i + 1) % TAGLINES.length);
+      setIdx(i => (i + 1) % TAGLINES.length);
     }
-
-    return () => clearTimeout(timeout);
-  }, [displayed, deleting, phraseIndex]);
+    return () => clearTimeout(t);
+  }, [text, deleting, idx]);
 
   return (
-    <span>
-      {displayed}
-      <span className="blink" style={{ color: "var(--mint)", marginLeft: 2 }}>|</span>
-    </span>
+    <>
+      {text}
+      <span className="animate-blink text-mint ml-0.5">|</span>
+    </>
   );
 }
 
@@ -53,209 +47,117 @@ const STATS = [
 ];
 
 const SOCIALS = [
-  {
-    icon:  <FaLinkedinIn size={16} />,
-    href:  "https://www.linkedin.com/in/sodiya-tofunmi-644737379",
-    hover: "#0077B5",
-  },
-  {
-    icon:  <FaGithub size={16} />,
-    href:  "https://github.com/Eritofunmi01",
-    hover: "var(--mint)",
-  },
-  {
-    icon:  <FaXTwitter size={16} />,
-    href:  "https://x.com/The_YoungDev",
-    hover: "#1DA1F2",
-  },
-  {
-    icon:  <FaWhatsapp size={16} />,
-    href:  "https://wa.me/2348069062202",
-    hover: "#25D366",
-  },
+  { icon: <FaLinkedinIn size={16} />, href: "https://www.linkedin.com/in/sodiya-tofunmi-644737379", glow: "rgba(0,119,181,0.5)",  border: "#0077B5" },
+  { icon: <FaGithub     size={16} />, href: "https://github.com/Eritofunmi01",                      glow: "rgba(0,255,178,0.5)", border: "#00FFB2" },
+  { icon: <FaXTwitter   size={16} />, href: "https://x.com/The_YoungDev",                           glow: "rgba(29,161,242,0.5)",border: "#1DA1F2" },
+  { icon: <FaWhatsapp   size={16} />, href: "https://wa.me/2348069062202",                          glow: "rgba(37,211,102,0.5)",border: "#25D366" },
 ];
 
-/* ── Animated entrance variants ── */
 const fadeUp = (delay = 0) => ({
   initial:    { opacity: 0, y: 32 },
   animate:    { opacity: 1, y: 0  },
   transition: { delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] },
 });
 
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
+
 export default function Hero() {
   return (
-    <div
-      className="grid-bg"
-      style={{
-        minHeight:      "100vh",
-        display:        "flex",
-        flexDirection:  "column",
-        justifyContent: "center",
-        position:       "relative",
-        padding:        "7rem 2rem 5rem",
-        overflow:       "hidden",
-      }}
-    >
-      {/* ── Radial glow behind title ── */}
+    <div className="grid-bg relative flex flex-col justify-center min-h-screen overflow-hidden px-5 md:px-16 pt-28 pb-16">
+
+      {/* Purple orb behind the text */}
       <div
         aria-hidden
-        style={{
-          position:   "absolute",
-          top:        "30%",
-          left:       "50%",
-          transform:  "translate(-50%, -50%)",
-          width:      700,
-          height:     700,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 65%)",
-          pointerEvents: "none",
-          zIndex:     0,
-        }}
+        className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
+        style={{ background: "radial-gradient(circle, rgba(124,58,237,0.11) 0%, transparent 65%)" }}
       />
 
-      {/* ── Available badge ── */}
-      <motion.div {...fadeUp(0.15)} style={{ marginBottom: "2rem", display: "flex", alignItems: "center", gap: "0.6rem", position: "relative", zIndex: 1 }}>
+      {/* Status badge */}
+      <motion.div {...fadeUp(0.15)} className="flex items-center gap-2.5 mb-8">
         <span
-          style={{
-            width: 8, height: 8, borderRadius: "50%",
-            background: "var(--mint)",
-            boxShadow:  "0 0 10px var(--mint)",
-            display:    "inline-block",
-            animation:  "blink 2s ease infinite",
-          }}
+          className="w-2 h-2 rounded-full bg-mint animate-pulse2 shrink-0"
+          style={{ boxShadow: "0 0 10px #00FFB2" }}
         />
         <span className="section-label">Available for work</span>
       </motion.div>
 
-      {/* ── Main headline ── */}
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 900 }}>
-        <motion.p {...fadeUp(0.25)}
-          style={{
-            fontFamily:    "var(--font-mono)",
-            fontSize:      "0.85rem",
-            color:         "var(--muted)",
-            letterSpacing: "0.18em",
-            marginBottom:  "1rem",
-          }}
-        >
+      {/* Headline */}
+      <motion.div {...fadeUp(0.28)} className="max-w-4xl">
+        <p className="font-mono text-[0.85rem] text-dim tracking-[0.18em] mb-4">
           — Sodiya Tofunmi Israel
-        </motion.p>
-
-        <motion.h1 {...fadeUp(0.32)}>
+        </p>
+        <h1 className="font-display leading-[0.9]">
           <span
-            className="display-text"
-            style={{
-              display:    "block",
-              fontSize:   "clamp(4.5rem, 13vw, 11.5rem)",
-              color:      "var(--white)",
-            }}
+            className="block text-snow"
+            style={{ fontSize: "clamp(4rem, 12vw, 10.5rem)" }}
           >
             I BUILD
           </span>
           <span
-            className="display-text gradient-text"
-            style={{
-              display:  "block",
-              fontSize: "clamp(4.5rem, 13vw, 11.5rem)",
-            }}
+            className="block gradient-text"
+            style={{ fontSize: "clamp(4rem, 12vw, 10.5rem)" }}
           >
             THE WEB
           </span>
           <span
-            className="display-text"
+            className="block"
             style={{
-              display:           "block",
-              fontSize:          "clamp(4.5rem, 13vw, 11.5rem)",
-              color:             "transparent",
-              WebkitTextStroke:  "2px rgba(240,244,255,0.12)",
+              fontSize:         "clamp(4rem, 12vw, 10.5rem)",
+              color:            "transparent",
+              WebkitTextStroke: "2px rgba(240,244,255,0.1)",
             }}
           >
             DIFFERENT.
           </span>
-        </motion.h1>
+        </h1>
+      </motion.div>
 
-        {/* ── Typewriter tagline ── */}
-        <motion.p {...fadeUp(0.55)}
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize:   "1.1rem",
-            color:      "var(--muted)",
-            lineHeight: 1.7,
-            marginTop:  "2rem",
-            minHeight:  "1.8rem",
-            maxWidth:   560,
-          }}
-        >
-          <Typewriter />
-        </motion.p>
+      {/* Typewriter */}
+      <motion.p
+        {...fadeUp(0.5)}
+        className="font-sans text-lg text-dim leading-relaxed mt-8 max-w-[520px] min-h-[2rem]"
+      >
+        <Typewriter />
+      </motion.p>
 
-        {/* ── CTA buttons ── */}
-        <motion.div {...fadeUp(0.7)}
-          style={{ display: "flex", gap: "1rem", marginTop: "2.25rem", flexWrap: "wrap" }}
-        >
-          <button className="btn-primary" onClick={() => scrollTo("contact")}>
-            Start a project <ArrowRight size={14} />
-          </button>
-          <button className="btn-outline" onClick={() => scrollTo("about")}>
-            About me
-          </button>
-        </motion.div>
-      </div>
+      {/* CTA buttons */}
+      <motion.div {...fadeUp(0.66)} className="flex flex-wrap gap-3 mt-8">
+        <button className="btn-primary" onClick={() => scrollTo("contact")}>
+          Start a project <ArrowRight size={14} />
+        </button>
+        <button className="btn-outline" onClick={() => scrollTo("about")}>
+          About me
+        </button>
+      </motion.div>
 
-      {/* ── Stats row ── */}
+      {/* Stats */}
       <motion.div
-        {...fadeUp(1.0)}
-        style={{
-          display:     "flex",
-          gap:         "3rem",
-          marginTop:   "4.5rem",
-          paddingTop:  "2.5rem",
-          borderTop:   "1px solid var(--border)",
-          flexWrap:    "wrap",
-          position:    "relative",
-          zIndex:      1,
-        }}
+        {...fadeUp(0.9)}
+        className="flex flex-wrap gap-8 md:gap-12 mt-14 pt-8 border-t border-mint/10"
       >
         {STATS.map(({ value, label }) => (
           <div key={label}>
             <div
-              className="display-text"
-              style={{ fontSize: "2.8rem", color: "var(--mint)", lineHeight: 1 }}
+              className="font-display text-mint"
+              style={{ fontSize: "clamp(2rem, 5vw, 2.8rem)", lineHeight: 1 }}
             >
               {value}
             </div>
-            <div
-              style={{
-                fontFamily:    "var(--font-mono)",
-                fontSize:      "0.68rem",
-                color:         "var(--muted)",
-                marginTop:     "4px",
-                letterSpacing: "0.1em",
-              }}
-            >
+            <div className="font-mono text-[0.68rem] text-dim tracking-[0.1em] mt-1">
               {label}
             </div>
           </div>
         ))}
       </motion.div>
 
-      {/* ── Floating social sidebar ── */}
+      {/* Floating social sidebar — desktop only */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.3 }}
-        style={{
-          position:      "fixed",
-          right:         "1.5rem",
-          top:           "50%",
-          transform:     "translateY(-50%)",
-          display:       "flex",
-          flexDirection: "column",
-          alignItems:    "center",
-          gap:           "0.9rem",
-          zIndex:        50,
-        }}
-        className="hide-mobile"
+        transition={{ delay: 1.2 }}
+        className="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 flex-col items-center gap-3 z-50"
       >
         {SOCIALS.map((s, i) => (
           <a
@@ -263,70 +165,33 @@ export default function Hero() {
             href={s.href}
             target="_blank"
             rel="noreferrer"
-            style={{
-              width:         38,
-              height:        38,
-              borderRadius:  "50%",
-              background:    "var(--card)",
-              border:        "1px solid var(--border)",
-              display:       "flex",
-              alignItems:    "center",
-              justifyContent: "center",
-              color:         "var(--muted)",
-              textDecoration: "none",
-              transition:    "all 0.22s ease",
-            }}
+            className="w-9 h-9 rounded-full bg-surface border border-mint/10 flex items-center justify-center text-dim no-underline transition-all duration-200 hover:scale-110"
             onMouseEnter={e => {
-              e.currentTarget.style.color       = s.hover;
-              e.currentTarget.style.borderColor = s.hover;
-              e.currentTarget.style.boxShadow   = `0 0 14px ${s.hover}55`;
-              e.currentTarget.style.transform   = "scale(1.1)";
+              e.currentTarget.style.color       = s.border;
+              e.currentTarget.style.borderColor = s.border;
+              e.currentTarget.style.boxShadow   = `0 0 14px ${s.glow}`;
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.color       = "var(--muted)";
-              e.currentTarget.style.borderColor = "var(--border)";
-              e.currentTarget.style.boxShadow   = "none";
-              e.currentTarget.style.transform   = "scale(1)";
+              e.currentTarget.style.color       = "";
+              e.currentTarget.style.borderColor = "";
+              e.currentTarget.style.boxShadow   = "";
             }}
           >
             {s.icon}
           </a>
         ))}
-        {/* Vertical line below icons */}
-        <div style={{ width: 1, height: 56, background: "var(--border)", marginTop: "0.2rem" }} />
+        <div className="w-px h-14 bg-mint/10 mt-1" />
       </motion.div>
 
-      {/* ── Scroll cue ── */}
+      {/* Scroll cue */}
       <motion.button
         onClick={() => scrollTo("about")}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 7, 0] }}
         transition={{ delay: 1.6, duration: 2.2, repeat: Infinity }}
-        style={{
-          position:      "absolute",
-          bottom:        "2.5rem",
-          left:          "50%",
-          transform:     "translateX(-50%)",
-          display:       "flex",
-          flexDirection: "column",
-          alignItems:    "center",
-          gap:           "0.4rem",
-          color:         "var(--muted)",
-          background:    "none",
-          border:        "none",
-          cursor:        "pointer",
-          zIndex:        1,
-        }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-dim bg-transparent border-none cursor-pointer"
       >
-        <span
-          style={{
-            fontFamily:    "var(--font-mono)",
-            fontSize:      "0.6rem",
-            letterSpacing: "0.25em",
-          }}
-        >
-          SCROLL
-        </span>
+        <span className="font-mono text-[0.6rem] tracking-[0.25em]">SCROLL</span>
         <ChevronDown size={14} />
       </motion.button>
     </div>
