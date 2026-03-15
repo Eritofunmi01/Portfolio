@@ -40,7 +40,7 @@ export default function About() {
 
       {/* Heading */}
       <Reveal>
-        <p className="section-label mb-3">wh o I am</p>
+        <p className="section-label mb-3">Who I am</p>
         <h2
           className="font-display gradient-text leading-none mb-14"
           style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
