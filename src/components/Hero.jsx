@@ -41,7 +41,7 @@ function Typewriter() {
 
 const STATS = [
   { value: "2+",  label: "Years Building"   },
-  { value: "20+", label: "Projects Shipped" },
+  { value: "10+", label: "Projects Shipped" },
   { value: "10+", label: "Happy Clients"    },
   { value: "∞",   label: "Lines of Code"    },
 ];

@@ -40,7 +40,7 @@ export default function About() {
 
       {/* Heading */}
       <Reveal>
-        <p className="section-label mb-3">// who I am</p>
+        <p className="section-label mb-3">wh o I am</p>
         <h2
           className="font-display gradient-text leading-none mb-14"
           style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
@@ -58,9 +58,9 @@ export default function About() {
             {/* Avatar */}
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center font-display text-2xl text-void mb-6 shrink-0"
-              style={{ background: "linear-gradient(135deg, #00FFB2, #7C3AED)" }}
+              // style={{ background: "linear-gradient(135deg, #00FFB2, #7C3AED)" }}
             >
-              STI
+              <img src="/Img/frame ass.png" alt="" />
             </div>
 
             <h3 className="text-lg font-semibold mb-1">Sodiya Tofunmi Israel</h3>
