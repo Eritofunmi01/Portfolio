@@ -68,8 +68,8 @@ export default function Contact() {
     <div className="section-wrap">
 
       {/* Heading */}
-      <Reveal>
-        <p className="section-label mb-3">// reach out</p>
+      {/* <Reveal>
+        <p className="section-label mb-3"> reach out</p>
         <h2
           className="font-display leading-none mb-4"
           style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
@@ -80,7 +80,7 @@ export default function Contact() {
           Have a project in mind? Want to collaborate or just say hi? I'm always open
           to the right opportunity — drop me a message.
         </p>
-      </Reveal>
+      </Reveal> */}
 
       {/* Two-column layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
