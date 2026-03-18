@@ -1,6 +1,9 @@
 /* ─── Google Fonts ──────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
+/* ─── Google Fonts ──────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,87 +40,137 @@ body {
 ::-webkit-scrollbar-track { background: var(--void); }
 ::-webkit-scrollbar-thumb { background: var(--mint); border-radius: 2px; }
 
-/* ─── Shared Components ──────────────────────────────────────────────────────── */
-@layer components {
+/* ─── Shared Components — plain CSS, no @apply (Tailwind v4 compatible) ──────── */
 
-  /* Section wrapper — controls max-width & padding */
-  .section-wrap {
-    @apply max-w-6xl mx-auto px-6 py-24;
-  }
-
-  /* Small label above headings */
-  .section-label {
-    @apply font-mono text-xs tracking-[0.2em] uppercase;
-    color: var(--mint);
-  }
-
-  /* Glassmorphism card */
-  .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 16px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  /* Animated gradient text */
-  .gradient-text {
-    background: linear-gradient(135deg, var(--mint) 0%, #60efff 50%, var(--mint) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200%;
-    animation: shimmer 4s linear infinite;
-  }
-
-  /* Primary CTA button */
-  .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold
-           transition-all duration-200 cursor-pointer;
-    background: var(--mint);
-    color: var(--void);
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 28px rgba(0, 255, 178, 0.35);
-  }
-
-  /* Ghost / outline button */
-  .btn-ghost {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium
-           transition-all duration-200 cursor-pointer;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: var(--text);
-  }
-  .btn-ghost:hover {
-    border-color: var(--mint);
-    color: var(--mint);
-    background: rgba(0, 255, 178, 0.05);
-  }
-
-  /* Form inputs */
-  .input-field {
-    @apply w-full rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-  }
-  .input-field:focus {
-    border-color: rgba(0, 255, 178, 0.4);
-    background: rgba(0, 255, 178, 0.03);
-    box-shadow: 0 0 0 3px rgba(0, 255, 178, 0.08);
-  }
-  .input-field::placeholder { color: var(--dim); }
-  textarea.input-field { resize: none; }
-
-  /* Muted / secondary text */
-  .text-dim { color: var(--dim); }
-
-  /* Font shorthands (used by existing Contact component) */
-  .font-display { font-family: 'Syne', sans-serif; }
-  .font-mono    { font-family: 'JetBrains Mono', monospace; }
+/* Section wrapper — controls max-width & padding */
+.section-wrap {
+  max-width: 72rem;       /* = max-w-6xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;   /* = px-6 */
+  padding-right: 1.5rem;
+  padding-top: 6rem;      /* = py-24 */
+  padding-bottom: 6rem;
 }
+
+/* Small label above headings */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Animated gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--mint) 0%, #60efff 50%, var(--mint) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200%;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Primary CTA button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  background: var(--mint);
+  color: var(--void);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(0, 255, 178, 0.35);
+}
+
+/* Ghost / outline button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  background: transparent;
+}
+.btn-ghost:hover {
+  border-color: var(--mint);
+  color: var(--mint);
+  background: rgba(0, 255, 178, 0.05);
+}
+
+/* Form inputs */
+.input-field {
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+}
+.input-field:focus {
+  border-color: rgba(0, 255, 178, 0.4);
+  background: rgba(0, 255, 178, 0.03);
+  box-shadow: 0 0 0 3px rgba(0, 255, 178, 0.08);
+}
+.input-field::placeholder { color: var(--dim); }
+textarea.input-field { resize: none; }
+
+/* Muted / secondary text */
+.text-dim { color: var(--dim); }
+
+/* Font shorthands */
+.font-display { font-family: 'Syne', sans-serif; }
+.font-mono    { font-family: 'JetBrains Mono', monospace; }
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1;   }
+}
+
+.float      { animation: float 6s ease-in-out infinite; }
+.glow-pulse { animation: pulse-glow 2s ease-in-out infinite; }
 
 /* ─── Keyframes ──────────────────────────────────────────────────────────────── */
 @keyframes shimmer {
