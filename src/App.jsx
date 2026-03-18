@@ -7,26 +7,20 @@ import Contact  from './components/Contact'
 
 export default function App() {
   return (
-    <div className="min-h-screen" style={{ background: 'var(--void)' }}>
-
-      {/* ── Sticky navigation ── */}
+    <>
       <Navbar />
-
       <main>
-        <section id="hero">    <Hero />     </section>
-        <section id="about">   <About />    </section>
-        <section id="skills">  <Skills />   </section>
-        <section id="projects"><Projects /> </section>
-        <section id="contact"> <Contact />  </section>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
       </main>
-
-      {/* ── Footer ── */}
-      <footer className="text-center py-8 border-t" style={{ borderColor: 'var(--border)' }}>
-        <p className="font-mono text-xs text-dim">
-          © {new Date().getFullYear()} Sodiya Tofunmi — Designed &amp; built from Lagos 🇳🇬
+      <footer style={{ borderTop: '1px solid var(--border)', padding: '24px 0', textAlign: 'center' }}>
+        <p style={{ color: 'var(--muted)', fontSize: '0.88rem', fontFamily: "'JetBrains Mono', monospace" }}>
+          © {new Date().getFullYear()} Sodiya Tofunmi — Built from Lagos 🇳🇬
         </p>
       </footer>
-
-    </div>
+    </>
   )
 }

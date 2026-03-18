@@ -1,116 +1,126 @@
-import { motion } from 'framer-motion'
-import { ArrowDown, Sparkles } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import { FaGithub, FaLinkedinIn, FaXTwitter, FaWhatsapp } from 'react-icons/fa6'
+
+// ── Edit social links here ────────────────────────────────────
+const SOCIALS = [
+  { icon: FaGithub,    href: 'https://github.com/Eritofunmi01',                       label: 'GitHub'    },
+  { icon: FaLinkedinIn,href: 'https://www.linkedin.com/in/sodiya-tofunmi-644737379',  label: 'LinkedIn'  },
+  { icon: FaXTwitter,  href: 'https://x.com/The_YoungDev',                            label: 'X/Twitter' },
+  { icon: FaWhatsapp,  href: 'https://wa.me/2348069062202',                           label: 'WhatsApp'  },
+]
 
 export default function Hero() {
+  const ref = useRef(null)
+
+  // Simple staggered fade-up on mount
+  useEffect(() => {
+    const els = ref.current?.querySelectorAll('[data-delay]')
+    els?.forEach(el => {
+      const d = el.getAttribute('data-delay')
+      el.style.animationDelay = d + 'ms'
+      el.style.opacity = 0
+      el.style.animation = `fadeUp 0.75s ease forwards`
+      el.style.animationDelay = d + 'ms'
+    })
+  }, [])
+
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
-    >
+    <section id="hero" ref={ref} style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      paddingTop: 80,
+    }}>
+      <div className="container">
 
-      {/* ── Subtle grid background ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(0,255,178,0.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,255,178,0.025) 1px, transparent 1px)
-          `,
-          backgroundSize: '64px 64px',
-        }}
-      />
+        {/* Available badge */}
+        <div data-delay="0" style={{ opacity: 0, display: 'inline-flex', alignItems: 'center', gap: 8,
+          background: 'rgba(0,255,178,0.08)', border: '1px solid rgba(0,255,178,0.25)',
+          borderRadius: 999, padding: '6px 16px', marginBottom: 28 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)',
+            display: 'inline-block', animation: 'bounce 1.4s ease-in-out infinite' }} />
+          <span style={{ color: 'var(--accent)', fontSize: '0.82rem', fontWeight: 500,
+            fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.05em' }}>
+            Available for work &amp; freelance
+          </span>
+        </div>
 
-      {/* ── Glow orbs ── */}
-      <div
-        className="absolute top-1/3 -left-48 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(0,255,178,0.07) 0%, transparent 70%)' }}
-      />
-      <div
-        className="absolute bottom-1/4 -right-48 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(96,239,255,0.05) 0%, transparent 70%)' }}
-      />
+        {/* Name */}
+        <h1 data-delay="120" style={{
+          opacity: 0,
+          fontSize: 'clamp(3rem, 9vw, 6.5rem)',
+          fontWeight: 900,
+          lineHeight: 1.05,
+          color: 'var(--accent)',
+          marginBottom: 20,
+          letterSpacing: '-0.03em',
+        }}>
+          Sodiya Tofunmi
+        </h1>
 
-      {/* ── Content ── */}
-      <div className="section-wrap pt-28 relative z-10 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 36 }}
-          animate={{ opacity: 1, y:  0  }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {/* Available badge */}
-          <div className="inline-flex items-center gap-2.5 mb-7 px-4 py-2 rounded-full"
-            style={{ border: '1px solid rgba(0,255,178,0.2)', background: 'rgba(0,255,178,0.05)' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-mint glow-pulse" />
-            <span className="font-mono text-[0.7rem] tracking-wider" style={{ color: 'var(--mint)' }}>
-              Available for work &amp; freelance
-            </span>
-          </div>
+        {/* Role */}
+        <p data-delay="240" style={{
+          opacity: 0,
+          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+          fontWeight: 700,
+          color: 'var(--text)',
+          marginBottom: 16,
+        }}>
+          Full Stack Developer
+        </p>
 
-          {/* Greeting */}
-          <p className="font-mono text-dim text-xs tracking-[0.25em] uppercase mb-4">
-            Hi there, I'm
-          </p>
+        {/* Specialties */}
+        <p data-delay="360" style={{ opacity: 0, color: 'var(--muted)', fontSize: '1.05rem', marginBottom: 40 }}>
+          Web Development &nbsp;•&nbsp; Mobile Development &nbsp;•&nbsp; React / Node.js
+        </p>
 
-          {/* Name — edit font size in the style prop below */}
-          <h1
-            className="font-display leading-[0.9] mb-5"
-            style={{ fontSize: 'clamp(3.8rem, 11vw, 8.5rem)', fontWeight: 800 }}
-          >
-            <span className="gradient-text">SODIYA</span>
-            <br />
-            <span className="text-white">TOFUNMI</span>
-          </h1>
+        {/* CTAs */}
+        <div data-delay="480" style={{ opacity: 0, display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 48 }}>
+          <a href="#contact"  className="btn btn-solid">Get In Touch</a>
+          <a href="#projects" className="btn btn-outline">View Projects</a>
+        </div>
 
-          {/* Title line */}
-          <p
-            className="font-display mb-6"
-            style={{
-              fontSize: 'clamp(1rem, 2.8vw, 1.65rem)',
-              fontWeight: 500,
-              color: 'var(--dim)',
-            }}
-          >
-            Full-Stack Developer
-            <span style={{ color: 'rgba(0,255,178,0.5)', margin: '0 12px' }}>—</span>
-            React · Node.js · Mobile
-          </p>
-
-          {/* Short bio */}
-          <p
-            className="leading-relaxed max-w-[520px] mb-10"
-            style={{ fontSize: '0.96rem', color: 'var(--dim)' }}
-          >
-            Building sleek, high-performance web &amp; mobile apps from Lagos, Nigeria.
-            Started early 2024 and hitting the ground running every day.
-          </p>
-
-          {/* CTA buttons */}
-          <div className="flex flex-wrap gap-4">
-            <a href="#projects" className="btn-primary">
-              View Projects <Sparkles size={14} />
+        {/* Social icons */}
+        <div data-delay="600" style={{ opacity: 0, display: 'flex', gap: 20, justifyContent: 'center', marginBottom: 60 }}>
+          {SOCIALS.map(s => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={s.label}
+              style={{
+                width: 44, height: 44, borderRadius: '50%',
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: 'var(--muted)',
+                fontSize: '1.1rem',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'var(--accent)'
+                e.currentTarget.style.color = 'var(--accent)'
+                e.currentTarget.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'var(--border)'
+                e.currentTarget.style.color = 'var(--muted)'
+                e.currentTarget.style.transform = ''
+              }}
+            >
+              <s.icon />
             </a>
-            <a href="#contact" className="btn-ghost">
-              Get in Touch
-            </a>
-          </div>
-        </motion.div>
+          ))}
+        </div>
 
-        {/* Scroll cue */}
-        <motion.a
-          href="#about"
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-dim hover:text-mint transition-colors duration-200"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.3, duration: 0.6 }}
-        >
-          <span className="font-mono text-[9px] tracking-[0.2em] uppercase">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 5, 0] }}
-            transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-          >
-            <ArrowDown size={13} />
-          </motion.div>
-        </motion.a>
+        {/* Scroll arrow */}
+        <a href="#about" style={{ display: 'inline-block', color: 'var(--accent)', fontSize: '1.4rem' }} className="bounce">
+          ↓
+        </a>
+
       </div>
     </section>
   )

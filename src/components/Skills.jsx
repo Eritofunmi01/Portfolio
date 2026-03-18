@@ -1,138 +1,140 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 
-function Reveal({ children, delay = 0, className = '' }) {
-  const ref    = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// ─── Edit skill groups here — add / remove / rename freely ────────────────────
-const SKILL_GROUPS = [
+// ── Edit skill bars here — percentages are honest self-assessments ────────────
+const SKILL_BARS = [
   {
-    category: 'Frontend',
-    color:    '#00FFB2',
-    skills:   ['HTML5', 'CSS3', 'JavaScript', 'React', 'Tailwind CSS'],
+    category: 'Frontend Development',
+    skills: [
+      { name: 'HTML / CSS',     pct: 90 },
+      { name: 'JavaScript',     pct: 78 },
+      { name: 'React',          pct: 75 },
+      { name: 'Tailwind CSS',   pct: 82 },
+    ],
   },
   {
-    category: 'Mobile',
-    color:    '#60EFFF',
-    skills:   ['React Native', 'Expo'],
+    category: 'Backend & Database',
+    skills: [
+      { name: 'Node.js / Express', pct: 65 },
+      { name: 'PostgreSQL',        pct: 60 },
+      { name: 'Supabase',          pct: 68 },
+      { name: 'REST APIs',         pct: 70 },
+    ],
   },
   {
-    category: 'Backend',
-    color:    '#A78BFA',
-    skills:   ['Node.js', 'Express', 'PostgreSQL', 'Supabase'],
+    category: 'Mobile Development',
+    skills: [
+      { name: 'React Native', pct: 62 },
+      { name: 'Expo',         pct: 65 },
+    ],
   },
   {
-    category: 'Tools & Platforms',
-    color:    '#FB923C',
-    skills:   ['Git', 'GitHub', 'VS Code', 'Vercel'],
+    category: 'Tools & Workflow',
+    skills: [
+      { name: 'Git / GitHub', pct: 78 },
+      { name: 'Vercel',       pct: 80 },
+      { name: 'VS Code',      pct: 90 },
+    ],
   },
 ]
 
-export default function Skills() {
+// ── Technology tag cloud ──────────────────────────────────────────────────────
+const TECH_TAGS = [
+  'React', 'React Native', 'Expo', 'JavaScript', 'HTML5', 'CSS3',
+  'Tailwind CSS', 'Node.js', 'Express.js', 'PostgreSQL', 'Supabase',
+  'Git', 'GitHub', 'Vercel', 'REST APIs',
+]
+
+function SkillBar({ name, pct, animate }) {
   return (
-    <section id="skills" className="relative">
-      <div className="section-wrap">
+    <div style={{ marginBottom: 18 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+        <span style={{ color: 'var(--text)', fontSize: '0.92rem', fontWeight: 500 }}>{name}</span>
+        <span style={{ color: 'var(--accent)', fontSize: '0.88rem', fontWeight: 600,
+          fontFamily: "'JetBrains Mono', monospace" }}>{pct}%</span>
+      </div>
+      <div style={{ background: 'var(--bg3)', borderRadius: 99, height: 6, overflow: 'hidden' }}>
+        <div style={{
+          height: '100%',
+          background: 'var(--accent)',
+          borderRadius: 99,
+          width: animate ? `${pct}%` : '0%',
+          transition: 'width 1s ease',
+        }} />
+      </div>
+    </div>
+  )
+}
 
-        {/* ── Heading ── */}
-        <Reveal>
-          <p className="section-label mb-3">What I work with</p>
-          <h2
-            className="font-display leading-none mb-16"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 800 }}
-          >
-            MY <span className="gradient-text">SKILLS</span>
-          </h2>
-        </Reveal>
+export default function Skills() {
+  const ref     = useRef(null)
+  const [anim, setAnim] = useState(false)
 
-        {/* ── Skill cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {SKILL_GROUPS.map((group, i) => (
-            <Reveal key={group.category} delay={i * 0.08}>
-              <div className="glass-card p-6 h-full">
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => { if (entries[0].isIntersecting) { setAnim(true); observer.disconnect() } },
+      { threshold: 0.1 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
 
-                {/* Category label */}
-                <div className="flex items-center gap-3 mb-5">
-                  <div
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{
-                      background:  group.color,
-                      boxShadow:   `0 0 8px ${group.color}80`,
-                    }}
-                  />
-                  <span
-                    className="font-mono text-[0.68rem] tracking-[0.18em] uppercase font-medium"
-                    style={{ color: group.color }}
-                  >
-                    {group.category}
-                  </span>
-                </div>
+  return (
+    <section id="skills" className="section" ref={ref}
+      style={{ background: 'var(--bg2)' }}>
+      <div className="container">
 
-                {/* Skill badges */}
-                <div className="flex flex-wrap gap-2">
-                  {group.skills.map(skill => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1.5 rounded-lg font-mono text-[0.73rem] cursor-default
-                                 transition-all duration-200"
-                      style={{
-                        background:   `${group.color}10`,
-                        border:       `1px solid ${group.color}20`,
-                        color:        'var(--text)',
-                      }}
-                      onMouseEnter={e => {
-                        e.currentTarget.style.background   = `${group.color}20`
-                        e.currentTarget.style.borderColor  = `${group.color}55`
-                        e.currentTarget.style.color        = group.color
-                        e.currentTarget.style.transform    = 'translateY(-1px)'
-                      }}
-                      onMouseLeave={e => {
-                        e.currentTarget.style.background   = `${group.color}10`
-                        e.currentTarget.style.borderColor  = `${group.color}20`
-                        e.currentTarget.style.color        = 'var(--text)'
-                        e.currentTarget.style.transform    = ''
-                      }}
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
+        <h2 className="section-title">Skills &amp; Expertise</h2>
+        <p className="section-sub">A comprehensive toolkit for building modern web and mobile applications</p>
+
+        {/* Skill bar cards — 2 column grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, marginBottom: 48 }}>
+          {SKILL_BARS.map(group => (
+            <div key={group.category} className="card">
+              <h3 style={{ color: 'var(--text)', fontWeight: 700, fontSize: '1rem', marginBottom: 20,
+                paddingBottom: 12, borderBottom: '1px solid var(--border)' }}>
+                {group.category}
+              </h3>
+              {group.skills.map(s => (
+                <SkillBar key={s.name} name={s.name} pct={s.pct} animate={anim} />
+              ))}
+            </div>
           ))}
         </div>
 
-        {/* ── Currently learning banner ── */}
-        <Reveal delay={0.36}>
-          <div
-            className="mt-5 glass-card p-5 flex items-center gap-4"
-            style={{ borderColor: 'rgba(0,255,178,0.15)' }}
-          >
-            <span
-              className="w-2 h-2 rounded-full shrink-0 bg-mint animate-pulse"
-            />
-            <p className="font-mono text-[0.78rem] text-dim">
-              Currently learning:{' '}
-              <span style={{ color: 'var(--mint)' }}>AI &amp; Automation</span>
-              <span className="mx-2" style={{ color: 'rgba(255,255,255,0.2)' }}>·</span>
-              <span style={{ color: 'rgba(255,255,255,0.5)' }}>
-                Tech Square Academy — Jan 2026 → Apr 2026
+        {/* Tech tag cloud */}
+        <div style={{ textAlign: 'center' }}>
+          <h3 style={{ color: 'var(--text)', fontWeight: 700, fontSize: '1.15rem', marginBottom: 24 }}>
+            Technologies I Work With
+          </h3>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+            {TECH_TAGS.map(tag => (
+              <span
+                key={tag}
+                style={{
+                  padding: '8px 18px',
+                  borderRadius: 99,
+                  background: 'var(--bg3)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text)',
+                  fontSize: '0.88rem',
+                  fontWeight: 500,
+                  cursor: 'default',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = 'var(--accent)'
+                  e.currentTarget.style.color = 'var(--accent)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = 'var(--border)'
+                  e.currentTarget.style.color = 'var(--text)'
+                }}
+              >
+                {tag}
               </span>
-            </p>
+            ))}
           </div>
-        </Reveal>
+        </div>
 
       </div>
     </section>

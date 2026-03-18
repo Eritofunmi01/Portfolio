@@ -1,142 +1,103 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { MapPin, Calendar, FolderGit2 } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 
-// ─── Reusable scroll-reveal wrapper ───────────────────────────────────────────
-function Reveal({ children, delay = 0, className = '' }) {
-  const ref    = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// ─── Stats — edit values here ──────────────────────────────────────────────────
+// ── Edit your stats here ──────────────────────────────────────
 const STATS = [
-  { icon: <Calendar    size={16} />, label: 'Experience',  value: '1+ Yr'   },
-  { icon: <FolderGit2  size={16} />, label: 'Projects',    value: '5+'      },
-  { icon: <MapPin      size={16} />, label: 'Location',    value: 'Lagos 🇳🇬' },
+  { value: '1+',     label: 'Year Experience'  },
+  { value: '5+',     label: 'Projects Built'   },
+  { value: '2+',     label: 'Certifications'   },
+  { value: 'Lagos',  label: 'Based In 🇳🇬'      },
 ]
 
-// Path to photo — must be in /public
-const PHOTO_SRC = '/Img/frame ass.png'
-// Path to CV for download — must be in /public
-const CV_PATH   = '/Tofunmi_CV_.pdf'
-
 export default function About() {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          ref.current?.querySelectorAll('[data-anim]').forEach((el, i) => {
+            el.style.animation = `fadeUp 0.7s ease forwards`
+            el.style.animationDelay = (i * 120) + 'ms'
+          })
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="about" className="relative">
-      <div className="section-wrap">
+    <section id="about" className="section" ref={ref}>
+      <div className="container">
 
-        {/* ── Section heading ── */}
-        <Reveal>
-          <p className="section-label mb-3">Who I am</p>
-          <h2
-            className="font-display leading-none mb-16"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 800 }}
-          >
-            ABOUT <span className="gradient-text">ME</span>
-          </h2>
-        </Reveal>
+        <h2 data-anim style={{ opacity: 0 }} className="section-title">About Me</h2>
+        <p data-anim style={{ opacity: 0 }} className="section-sub">
+          A little about who I am and what drives me
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 56, alignItems: 'center' }}
+          className="flex-col md:grid">
 
-          {/* ── Photo column ── */}
-          <Reveal delay={0.1}>
-            <div className="relative w-fit mx-auto md:mx-0">
-
-              {/* Decorative glow border */}
-              <div
-                className="absolute -inset-[3px] rounded-[22px] pointer-events-none"
+          {/* Photo */}
+          <div data-anim style={{ opacity: 0, textAlign: 'center' }}>
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+              <img
+                src="/Img/frame ass.png"
+                alt="Sodiya Tofunmi"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(0,255,178,0.5) 0%, transparent 50%, rgba(96,239,255,0.3) 100%)',
+                  width: 260,
+                  height: 300,
+                  objectFit: 'cover',
+                  borderRadius: 16,
+                  border: '2px solid rgba(0,255,178,0.3)',
+                  display: 'block',
                 }}
               />
-
-              {/* Photo */}
-              <img
-                src={PHOTO_SRC}
-                alt="Sodiya Tofunmi"
-                className="relative w-72 h-[340px] object-cover rounded-[20px]"
-                style={{ filter: 'contrast(1.04) saturate(1.08)' }}
-              />
-
-              {/* "Open to Work" floating chip */}
-              <div
-                className="absolute -bottom-4 -right-4 glass-card px-4 py-2.5 flex items-center gap-2"
-              >
-                <span className="w-2 h-2 rounded-full bg-mint animate-pulse" />
-                <span
-                  className="font-mono text-[11px] font-medium"
-                  style={{ color: 'var(--mint)' }}
-                >
-                  Open to Work
-                </span>
+              {/* Open to work chip */}
+              <div style={{
+                position: 'absolute', bottom: -14, left: '50%', transform: 'translateX(-50%)',
+                background: 'var(--bg2)', border: '1px solid rgba(0,255,178,0.3)',
+                borderRadius: 999, padding: '6px 16px',
+                display: 'flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap',
+              }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
+                <span style={{ color: 'var(--accent)', fontSize: '0.78rem', fontWeight: 600 }}>Open to Work</span>
               </div>
             </div>
-          </Reveal>
-
-          {/* ── Text column ── */}
-          <div className="flex flex-col gap-5">
-
-            <Reveal delay={0.15}>
-              <p className="leading-relaxed" style={{ fontSize: '0.97rem', color: 'var(--text)' }}>
-                I'm <span style={{ color: 'var(--mint)', fontWeight: 600 }}>Sodiya Tofunmi</span>, a
-                full-stack developer based in Lagos, Nigeria. I kicked off my coding journey in early
-                2024 and haven't stopped since — building real projects, learning constantly, and
-                levelling up my skills week by week.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.2}>
-              <p className="leading-relaxed text-dim" style={{ fontSize: '0.97rem' }}>
-                I thrive on turning ideas into functional products — clean frontends, solid backends,
-                and mobile apps that feel native. Currently deepening my knowledge in AI &amp; Automation
-                and pushing myself to grow every single day.
-              </p>
-            </Reveal>
-
-            {/* Stats row */}
-            <Reveal delay={0.25}>
-              <div className="grid grid-cols-3 gap-3 mt-1">
-                {STATS.map(stat => (
-                  <div key={stat.label} className="glass-card p-4 text-center">
-                    <div
-                      className="flex justify-center mb-1.5"
-                      style={{ color: 'var(--mint)' }}
-                    >
-                      {stat.icon}
-                    </div>
-                    <p className="font-display font-bold text-lg text-white">{stat.value}</p>
-                    <p className="font-mono text-[10px] tracking-wider uppercase mt-0.5 text-dim">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-
-            {/* CTA buttons */}
-            <Reveal delay={0.3}>
-              <div className="flex flex-wrap gap-3 mt-2">
-                <a href="#projects" className="btn-primary text-sm">
-                  See My Work
-                </a>
-                <a href={CV_PATH} download className="btn-ghost text-sm">
-                  Download CV
-                </a>
-              </div>
-            </Reveal>
-
           </div>
+
+          {/* Text */}
+          <div>
+            <p data-anim style={{ opacity: 0, color: 'var(--text)', fontSize: '1rem', lineHeight: 1.8, marginBottom: 20 }}>
+              I'm <strong style={{ color: 'var(--accent)' }}>Sodiya Tofunmi</strong>, a full-stack developer
+              based in Lagos, Nigeria. I started my coding journey in early 2024 and I've been building
+              non-stop ever since — web apps, mobile apps, and everything in between.
+            </p>
+            <p data-anim style={{ opacity: 0, color: 'var(--muted)', fontSize: '1rem', lineHeight: 1.8, marginBottom: 36 }}>
+              I'm ambitious, self-driven, and genuinely excited about technology. Currently expanding into
+              AI &amp; Automation at Tech Square Academy. I'm open to both full-time roles and freelance
+              collaborations — I show up, I deliver, and I keep growing.
+            </p>
+
+            {/* Stats grid */}
+            <div data-anim style={{ opacity: 0, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 32 }}>
+              {STATS.map(s => (
+                <div key={s.label} className="card" style={{ padding: '20px 16px', textAlign: 'center' }}>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>{s.value}</p>
+                  <p style={{ fontSize: '0.72rem', color: 'var(--muted)', fontWeight: 500 }}>{s.label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Buttons */}
+            <div data-anim style={{ opacity: 0, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+              <a href="#projects"         className="btn btn-solid">View My Work</a>
+              <a href="/Tofunmi_CV_.pdf" download className="btn btn-outline">Download CV</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

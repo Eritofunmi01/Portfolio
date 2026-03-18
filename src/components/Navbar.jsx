@@ -1,100 +1,80 @@
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
 
-// ─── Edit nav links here ───────────────────────────────────────────────────────
-const NAV_LINKS = [
+const LINKS = [
+  { label: 'Home',     href: '#hero'     },
   { label: 'About',    href: '#about'    },
   { label: 'Skills',   href: '#skills'   },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact',  href: '#contact'  },
 ]
 
-// Path to your CV file inside /public
-const CV_PATH = '/Tofunmi_CV_.pdf'
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open,     setOpen]     = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    const fn = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', fn)
+    return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'glass-card rounded-none border-x-0 border-t-0'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+  const navStyle = {
+    position:        'fixed',
+    top:             0,
+    left:            0,
+    right:           0,
+    zIndex:          100,
+    background:      scrolled ? 'rgba(17,17,17,0.95)' : 'transparent',
+    backdropFilter:  scrolled ? 'blur(12px)' : 'none',
+    borderBottom:    scrolled ? '1px solid var(--border)' : '1px solid transparent',
+    transition:      'all 0.3s ease',
+  }
 
-        {/* Logo */}
-        <a href="#hero" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }} className="group">
-          <img
-            src="/Img/logo.png"
-            alt="Sodix logo"
-            style={{ width: '32px', height: '32px', objectFit: 'contain', transition: 'transform 0.3s' }}
-            className="group-hover:scale-110"
-          />
-          <span className="font-display font-bold text-sm tracking-widest text-white">
-            SODIX
-          </span>
+  return (
+    <nav style={navStyle}>
+      <div className="container" style={{ height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+
+        {/* Brand */}
+        <a href="#hero" style={{ color: 'var(--accent)', fontWeight: 700, fontSize: '1.15rem', letterSpacing: '-0.02em' }}>
+          Sodiya Tofunmi
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map(link => (
+        {/* Desktop nav */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 36 }} className="hidden md:flex">
+          {LINKS.map(l => (
             <a
-              key={link.href}
-              href={link.href}
-              className="font-mono text-[0.68rem] tracking-[0.18em] uppercase text-dim
-                         hover:text-mint transition-colors duration-200"
+              key={l.href}
+              href={l.href}
+              style={{ color: 'var(--muted)', fontSize: '0.95rem', fontWeight: 500, transition: 'color 0.2s' }}
+              onMouseEnter={e => e.target.style.color = 'var(--text)'}
+              onMouseLeave={e => e.target.style.color = 'var(--muted)'}
             >
-              {link.label}
+              {l.label}
             </a>
           ))}
-
-          {/* Resume download */}
-          <a
-            href={CV_PATH}
-            download
-            className="btn-primary text-xs px-4 py-2"
-          >
-            Resume ↓
-          </a>
+          <a href="#contact" className="btn btn-solid btn-sm">Hire Me</a>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile toggle */}
         <button
-          className="md:hidden text-dim hover:text-mint transition-colors duration-200"
-          onClick={() => setOpen(prev => !prev)}
-          aria-label="Toggle menu"
+          onClick={() => setOpen(p => !p)}
+          style={{ background: 'none', border: 'none', color: 'var(--text)', cursor: 'pointer', fontSize: '1.4rem' }}
+          className="md:hidden"
         >
-          {open ? <X size={20} /> : <Menu size={20} />}
+          {open ? '✕' : '☰'}
         </button>
       </div>
 
-      {/* Mobile dropdown */}
+      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden glass-card rounded-none border-x-0 px-6 py-5 flex flex-col gap-5">
-          {NAV_LINKS.map(link => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-dim
-                         hover:text-mint transition-colors duration-200"
-            >
-              {link.label}
+        <div style={{ background: 'var(--bg2)', borderTop: '1px solid var(--border)', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {LINKS.map(l => (
+            <a key={l.href} href={l.href} onClick={() => setOpen(false)}
+              style={{ color: 'var(--muted)', fontSize: '1rem', fontWeight: 500 }}>
+              {l.label}
             </a>
           ))}
-          <a href={CV_PATH} download className="btn-primary justify-center text-xs">
-            Download Resume
-          </a>
+          <a href="#contact" className="btn btn-solid btn-sm" style={{ alignSelf: 'flex-start' }}>Hire Me</a>
         </div>
       )}
     </nav>
