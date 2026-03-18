@@ -1,167 +1,144 @@
-import { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
-import { MapPin, Mail, Phone, Globe, Server, Database, Cpu } from "lucide-react";
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { MapPin, Calendar, FolderGit2 } from 'lucide-react'
 
-const SKILLS = {
-  Frontend:  ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Redux Toolkit"],
-  Backend:   ["Node.js", "Express.js", "REST APIs", "GraphQL", "JWT Auth", "Socket.io"],
-  Database:  ["MongoDB", "PostgreSQL", "Firebase", "Supabase", "Prisma ORM"],
-  Tools:     ["Git & GitHub", "Docker", "Vercel", "Linux CLI", "Figma", "VS Code"],
-};
-
-const BENTO = [
-  { key: "Frontend", icon: <Globe    size={20} />, color: "#00FFB2", border: "rgba(0,255,178,0.18)",   bg: "rgba(0,255,178,0.06)",    count: "6 techs" },
-  { key: "Backend",  icon: <Server   size={20} />, color: "#A78BFA", border: "rgba(167,139,250,0.18)", bg: "rgba(167,139,250,0.06)",  count: "6 techs" },
-  { key: "Database", icon: <Database size={20} />, color: "#60A5FA", border: "rgba(96,165,250,0.18)",  bg: "rgba(96,165,250,0.06)",   count: "5 techs" },
-  { key: "Tools",    icon: <Cpu      size={20} />, color: "#FB923C", border: "rgba(251,146,60,0.18)",   bg: "rgba(251,146,60,0.06)",   count: "6 items" },
-];
-
-function Reveal({ children, delay = 0, className = "" }) {
-  const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+// ─── Reusable scroll-reveal wrapper ───────────────────────────────────────────
+function Reveal({ children, delay = 0, className = '' }) {
+  const ref    = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
-  );
+  )
 }
 
+// ─── Stats — edit values here ──────────────────────────────────────────────────
+const STATS = [
+  { icon: <Calendar    size={16} />, label: 'Experience',  value: '1+ Yr'   },
+  { icon: <FolderGit2  size={16} />, label: 'Projects',    value: '5+'      },
+  { icon: <MapPin      size={16} />, label: 'Location',    value: 'Lagos 🇳🇬' },
+]
+
+// Path to photo — must be in /public
+const PHOTO_SRC = '/Img/frame ass.png'
+// Path to CV for download — must be in /public
+const CV_PATH   = '/Tofunmi_CV_.pdf'
+
 export default function About() {
-  const [activeTab, setActiveTab] = useState("Frontend");
-
   return (
-    <div className="section-wrap">
+    <section id="about" className="relative">
+      <div className="section-wrap">
 
-      {/* Heading */}
-      <Reveal>
-        <p className="section-label mb-3">Who I am</p>
-        <h2
-          className="font-display gradient-text leading-none mb-14"
-          style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
-        >
-          ABOUT ME
-        </h2>
-      </Reveal>
-
-      {/* Top grid: Bio + Bento */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-
-        {/* Bio card */}
-        <Reveal delay={0.1}>
-          <div className="glass-card p-8 h-full">
-            {/* Avatar */}
-            <div
-              className="w-16 h-16 rounded-full flex items-center justify-center font-display text-2xl text-void mb-6 shrink-0"
-              // style={{ background: "linear-gradient(135deg, #00FFB2, #7C3AED)" }}
-            >
-              <img src="/Img/frame ass.png" alt="" />
-            </div>
-
-            <h3 className="text-lg font-semibold mb-1">Sodiya Tofunmi Israel</h3>
-            <p className="font-mono text-[0.72rem] text-mint tracking-[0.12em] mb-5">
-              Full-Stack Developer
-            </p>
-
-            <p className="text-dim leading-[1.85] text-[0.95rem] mb-3">
-              I'm a full-stack developer based in Lagos, Nigeria — passionate about crafting
-              products that sit at the intersection of beautiful design and clean, maintainable
-              engineering.
-            </p>
-            <p className="text-dim leading-[1.85] text-[0.95rem]">
-              I turn complex ideas into fast, polished web applications — from pixel-perfect UIs
-              to rock-solid backend systems. Every project I touch is built with intention.
-            </p>
-
-            {/* Contact info */}
-            <div className="mt-6 pt-5 border-t border-mint/10 flex flex-col gap-3">
-              {[
-                { icon: <MapPin size={13} />, text: "Lagos, Nigeria"                  },
-                { icon: <Mail   size={13} />, text: "sodiyaeritofunmi15@gmail.com"     },
-                { icon: <Phone  size={13} />, text: "+234 806 906 2202"                },
-              ].map(({ icon, text }) => (
-                <div key={text} className="flex items-center gap-3 text-dim text-[0.88rem]">
-                  <span className="text-mint shrink-0">{icon}</span>
-                  <span className="break-all">{text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* ── Section heading ── */}
+        <Reveal>
+          <p className="section-label mb-3">Who I am</p>
+          <h2
+            className="font-display leading-none mb-16"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 800 }}
+          >
+            ABOUT <span className="gradient-text">ME</span>
+          </h2>
         </Reveal>
 
-        {/* Bento 2×2 */}
-        <Reveal delay={0.2}>
-          <div className="grid grid-cols-2 gap-3 h-full">
-            {BENTO.map((item, i) => (
-              <motion.div
-                key={item.key}
-                className="glass-card p-5 cursor-pointer"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+
+          {/* ── Photo column ── */}
+          <Reveal delay={0.1}>
+            <div className="relative w-fit mx-auto md:mx-0">
+
+              {/* Decorative glow border */}
+              <div
+                className="absolute -inset-[3px] rounded-[22px] pointer-events-none"
                 style={{
-                  borderColor: activeTab === item.key ? item.border : undefined,
-                  background:  activeTab === item.key ? item.bg     : undefined,
+                  background: 'linear-gradient(135deg, rgba(0,255,178,0.5) 0%, transparent 50%, rgba(96,239,255,0.3) 100%)',
                 }}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -3 }}
-                transition={{ delay: 0.1 + i * 0.08 }}
-                onClick={() => setActiveTab(item.key)}
-              >
-                <span style={{ color: item.color }}>{item.icon}</span>
-                <p className="font-semibold mt-3 mb-0.5">{item.key}</p>
-                <p className="font-mono text-[0.68rem] text-dim tracking-[0.08em]">
-                  {item.count}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </Reveal>
-      </div>
+              />
 
-      {/* Skills panel */}
-      <Reveal delay={0.3}>
-        <div className="glass-card p-7">
-          {/* Tab row */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {Object.keys(SKILLS).map(tab => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`font-mono text-[0.72rem] px-4 py-1.5 rounded-full border transition-all duration-200 cursor-pointer ${
-                  activeTab === tab
-                    ? "border-mint text-mint bg-mint/8"
-                    : "border-mint/10 text-dim bg-transparent hover:border-mint/30 hover:text-snow"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
+              {/* Photo */}
+              <img
+                src={PHOTO_SRC}
+                alt="Sodiya Tofunmi"
+                className="relative w-72 h-[340px] object-cover rounded-[20px]"
+                style={{ filter: 'contrast(1.04) saturate(1.08)' }}
+              />
 
-          {/* Tag cloud */}
-          <div className="flex flex-wrap gap-2 min-h-[2.5rem]">
-            <AnimatePresence mode="wait">
-              {SKILLS[activeTab].map((skill, i) => (
-                <motion.span
-                  key={`${activeTab}-${skill}`}
-                  className="skill-tag"
-                  initial={{ opacity: 0, scale: 0.75 }}
-                  animate={{ opacity: 1, scale: 1   }}
-                  exit={{    opacity: 0, scale: 0.75 }}
-                  transition={{ delay: i * 0.05 }}
+              {/* "Open to Work" floating chip */}
+              <div
+                className="absolute -bottom-4 -right-4 glass-card px-4 py-2.5 flex items-center gap-2"
+              >
+                <span className="w-2 h-2 rounded-full bg-mint animate-pulse" />
+                <span
+                  className="font-mono text-[11px] font-medium"
+                  style={{ color: 'var(--mint)' }}
                 >
-                  {skill}
-                </motion.span>
-              ))}
-            </AnimatePresence>
+                  Open to Work
+                </span>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* ── Text column ── */}
+          <div className="flex flex-col gap-5">
+
+            <Reveal delay={0.15}>
+              <p className="leading-relaxed" style={{ fontSize: '0.97rem', color: 'var(--text)' }}>
+                I'm <span style={{ color: 'var(--mint)', fontWeight: 600 }}>Sodiya Tofunmi</span>, a
+                full-stack developer based in Lagos, Nigeria. I kicked off my coding journey in early
+                2024 and haven't stopped since — building real projects, learning constantly, and
+                levelling up my skills week by week.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <p className="leading-relaxed text-dim" style={{ fontSize: '0.97rem' }}>
+                I thrive on turning ideas into functional products — clean frontends, solid backends,
+                and mobile apps that feel native. Currently deepening my knowledge in AI &amp; Automation
+                and pushing myself to grow every single day.
+              </p>
+            </Reveal>
+
+            {/* Stats row */}
+            <Reveal delay={0.25}>
+              <div className="grid grid-cols-3 gap-3 mt-1">
+                {STATS.map(stat => (
+                  <div key={stat.label} className="glass-card p-4 text-center">
+                    <div
+                      className="flex justify-center mb-1.5"
+                      style={{ color: 'var(--mint)' }}
+                    >
+                      {stat.icon}
+                    </div>
+                    <p className="font-display font-bold text-lg text-white">{stat.value}</p>
+                    <p className="font-mono text-[10px] tracking-wider uppercase mt-0.5 text-dim">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+
+            {/* CTA buttons */}
+            <Reveal delay={0.3}>
+              <div className="flex flex-wrap gap-3 mt-2">
+                <a href="#projects" className="btn-primary text-sm">
+                  See My Work
+                </a>
+                <a href={CV_PATH} download className="btn-ghost text-sm">
+                  Download CV
+                </a>
+              </div>
+            </Reveal>
+
           </div>
         </div>
-      </Reveal>
-    </div>
-  );
+      </div>
+    </section>
+  )
 }
