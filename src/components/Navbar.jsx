@@ -33,11 +33,12 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <a href="#hero" className="flex items-center gap-2.5 group">
+        <a href="#hero" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }} className="group">
           <img
-            src="/preview.png"
+            src="/Img/logo.png"
             alt="Sodix logo"
-            className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
+            style={{ width: '32px', height: '32px', objectFit: 'contain', transition: 'transform 0.3s' }}
+            className="group-hover:scale-110"
           />
           <span className="font-display font-bold text-sm tracking-widest text-white">
             SODIX
