@@ -17,6 +17,14 @@ const PROJECTS = [
     live:        'https://taskflow123.vercel.app/',
     github:      'https://github.com/Eritofunmi01/Todo-app',
   },
+  {
+    category: 'E-commerce',
+    title: 'GadgetAI',
+    description: 'An AI-powered gadget store with a sleek, modern design. Features dynamic product listings, gadget comparison, real-time search, and a seamless shopping experience.',
+    tech:        ['React', 'Tailwind CSS', 'Supabase'],
+    live:        'https://gadget-ai-store.vercel.app/',
+    github:      'https://github.com/Eritofunmi01/GadgetAi_Store',
+  }
 ]
 
 export default function Projects() {
