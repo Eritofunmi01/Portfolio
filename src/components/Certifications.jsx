@@ -4,33 +4,33 @@ import { X, Award } from 'lucide-react'
 // ─── Add your certificates here ───────────────────────────────────────────────
 const CERTIFICATES = [
   {
-    issuer:      'Meta',
-    title:       'Frontend Developer Professional Certificate',
-    date:        'March 2024',
-    description: 'Covers React, JavaScript, HTML/CSS, version control, and UX/UI design principles through hands-on projects.',
-    image:       '/Img/c1.jpeg',   // ← replace with your image path
+    issuer:      'Anchorsoft Academy',
+    title:       'Full stacks Developer Professional Certificate',
+    date:        'December 2025',
+    description: 'Covers React, JavaScript, HTML/CSS, version control, PostgreSQL, ExpressJs, Node.js and UX/UI design principles through hands-on projects.',
+    image:       '/Img/c1.jpeg',
   },
   {
-    issuer:      'Google',
-    title:       'UX Design Professional Certificate',
-    date:        'January 2024',
-    description: 'Focuses on user-centred design, wireframing, prototyping, and usability testing with Figma.',
+    issuer:      '',
+    title:       'Data Analysis Bootcamp',
+    date:        'August 2025',
+    description: 'One Months in Basic Data Analysis, Excel, SQL, Python, Data Visualization, and Real-world projects to build a strong foundation in data analysis.',
     image:       '/Img/c2.jpeg',
   },
   {
-    issuer:      'freeCodeCamp',
-    title:       'Responsive Web Design Certification',
-    date:        'October 2023',
-    description: 'HTML5, CSS3, Flexbox, CSS Grid, and accessibility fundamentals through 300+ hours of coursework.',
+    issuer:      'Lagos State Government Ministry Of Women Affairs and Poverty Alleviation',
+    title:       'Lagos State Competency Certificate II in Computer Studies',
+    date:        'July 2025',
+    description: 'Basic computer literacy, Microsoft Office proficiency, internet navigation, and foundational IT skills for workplace readiness.',
     image:       '/Img/c3.jpeg',
   },
-  {
-    issuer:      'Coursera',
-    title:       'JavaScript Algorithms & Data Structures',
-    date:        'August 2023',
-    description: 'Deep dive into algorithms, data structures, debugging, and object-oriented programming in JavaScript.',
-    // image:       '/certs/coursera-js.png',
-  },
+//   {
+//     issuer:      'Coursera',
+//     title:       'JavaScript Algorithms & Data Structures',
+//     date:        'August 2023',
+//     description: 'Deep dive into algorithms, data structures, debugging, and object-oriented programming in JavaScript.',
+//     // image:       '/certs/coursera-js.png',
+//   },
 ]
 // ──────────────────────────────────────────────────────────────────────────────
 
