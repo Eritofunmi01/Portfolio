@@ -79,7 +79,7 @@ export default function Hero() {
           color: 'var(--text)',
           marginBottom: 14,
         }}>
-          Full Stack Developer
+          AI Automation Engineer & Full Stack Developer
         </p>
 
         {/* Specialties */}
@@ -90,7 +90,7 @@ export default function Hero() {
           marginBottom: 36,
           lineHeight: 1.6,
         }}>
-          Web Development &nbsp;•&nbsp; Mobile Development &nbsp;•&nbsp; React / Node.js
+          AI Automation &nbsp;•&nbsp; Web Development &nbsp;•&nbsp; AI Agents &nbsp;•&nbsp; API Integration &nbsp;•&nbsp; Workflow Automation
         </p>
 
         {/* CTA buttons */}
