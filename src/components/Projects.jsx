@@ -1,116 +1,241 @@
-import { ExternalLink, Github } from 'lucide-react'
+import { useState } from 'react'
+import { ExternalLink, Github, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
-const PROJECTS = [
+const automationProjects = [
   {
     category: 'AI Automation',
     title: 'AI Lead Qualification Automation',
     description:
-      'Designed an AI-powered lead qualification workflow in n8n that automatically processes incoming enquiries, evaluates lead quality using an AI Agent, scores each lead, stores conversations, instantly alerts the CEO through Telegram for high-value opportunities, and sends personalized acknowledgement emails to every lead. This automation significantly reduces manual lead screening while ensuring no valuable enquiry is missed.',
+      'An AI-powered lead qualification workflow built with n8n that automatically evaluates incoming enquiries, scores lead quality using AI, stores interactions, alerts the CEO through Telegram for high-value leads, and sends acknowledgement emails to every prospect.',
+
     tech: [
       'n8n',
       'OpenAI',
       'AI Agent',
-      'Telegram Bot API',
+      'Telegram',
       'Gmail',
       'Webhooks',
       'JavaScript',
       'JSON'
     ],
-    live: '',
-    github: '',
+
+    images: [
+      '/Img/lead-workflow.png',
+      '/Img/lead-telegram.png',
+      '/Img/lead-email.png'
+    ],
+
+    overview:
+      'Designed to eliminate manual lead screening by automatically analysing incoming enquiries, assigning lead scores, notifying executives about qualified prospects and ensuring every customer immediately receives a professional response.',
+
+    features: [
+      'AI Lead Qualification',
+      'Automatic Lead Scoring',
+      'Telegram CEO Notifications',
+      'Email Auto Response',
+      'Conversation Storage',
+      'Workflow Automation'
+    ]
   },
 
   {
     category: 'Business Automation',
+
     title: 'Gym Subscription Renewal Automation',
+
     description:
-      'Built an end-to-end membership renewal automation for a fitness centre using n8n, Airtable and Fillout. The workflow automatically identifies members whose subscriptions expire on the current date, sends personalized renewal emails containing a Fillout renewal form, updates membership records inside Airtable after submission, and automatically confirms successful renewals via email.',
+      'A complete membership renewal workflow that checks for expiring subscriptions every day, automatically emails members renewal forms, updates Airtable after submission and confirms successful renewal through email.',
+
     tech: [
       'n8n',
       'Airtable',
       'Fillout',
-      'Gmail',
-      'Automation',
+      'Email Automation',
       'JavaScript'
     ],
-    live: '',
-    github: '',
+
+    images: ['/Img/gym-renewal.png'],
+
+    overview:
+      'Developed to remove manual subscription management by automating reminders, membership updates and customer notifications.',
+
+    features: [
+      'Daily Subscription Check',
+      'Renewal Emails',
+      'Fillout Integration',
+      'Airtable Update',
+      'Confirmation Emails'
+    ]
   },
 
   {
     category: 'Workflow Automation',
+
     title: 'Intelligent Email Routing Automation',
+
     description:
-      'Developed an automated email routing system that monitors incoming company emails, analyses message content using keyword extraction, determines the appropriate business department, and instantly forwards emails to the correct team. Emails that cannot be classified are automatically escalated to the administrator, eliminating manual sorting and improving response time.',
+      'Automatically analyses incoming company emails, identifies the correct department using keyword extraction and routes messages instantly. Emails without a clear department are escalated to administrators.',
+
     tech: [
       'n8n',
-      'Gmail',
+      'Email Automation',
       'Switch Nodes',
-      'Automation',
       'JavaScript',
       'JSON'
     ],
-    live: '',
-    github: '',
-  },
 
+    images: ['/Img/email-routing.png'],
+
+    overview:
+      'Created to eliminate manual email sorting while improving response times and ensuring every enquiry reaches the correct department.',
+
+    features: [
+      'Keyword Detection',
+      'Automatic Department Routing',
+      'Administrator Escalation',
+      'Email Processing'
+    ]
+  }
+]
+
+const webProjects = [
   {
-    category: 'Weather Application',
+    category: 'Weather App',
+
     title: 'AtmosPal',
+
     description:
-      'A modern weather dashboard providing real-time weather conditions and five-day forecasts worldwide using external APIs. Features responsive design, location search and clean UI built with React.',
+      'A real-time weather dashboard with current conditions and five-day forecasts using Weather API.',
+
     tech: ['React', 'Tailwind CSS', 'Weather API'],
+
     live: 'https://atmospal-app.vercel.app/',
-    github: 'https://github.com/Eritofunmi01/atmospal',
+
+    github: 'https://github.com/Eritofunmi01/atmospal'
   },
 
   {
     category: 'Productivity',
+
     title: 'TaskFlow',
+
     description:
-      'A smart productivity application for organising daily tasks with reminders and persistent cloud storage powered by Supabase. Built with React and Tailwind CSS.',
+      'A cloud-based task management application backed by Supabase with reminders and persistent storage.',
+
     tech: ['React', 'Tailwind CSS', 'Supabase'],
+
     live: 'https://taskflow123.vercel.app/',
-    github: 'https://github.com/Eritofunmi01/Todo-app',
+
+    github: 'https://github.com/Eritofunmi01/Todo-app'
   },
 
   {
     category: 'E-commerce',
+
     title: 'GadgetAI',
+
     description:
-      'An AI-inspired gadget store featuring modern product browsing, responsive design, product filtering and dynamic shopping experience backed by Supabase.',
+      'A modern AI-inspired gadget store featuring responsive design, filtering and dynamic product browsing.',
+
     tech: ['React', 'Tailwind CSS', 'Supabase'],
+
     live: 'https://gadget-ai-store.vercel.app/',
-    github: 'https://github.com/Eritofunmi01/GadgetAi_Store',
+
+    github: 'https://github.com/Eritofunmi01/GadgetAi_Store'
   }
 ]
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [currentImage, setCurrentImage] = useState(0)
+
+  const openProject = (project) => {
+    setSelectedProject(project)
+    setCurrentImage(0)
+  }
+
+  const closeProject = () => {
+    setSelectedProject(null)
+    setCurrentImage(0)
+  }
+
+  const nextImage = () => {
+    setCurrentImage((prev) =>
+      prev === selectedProject.images.length - 1 ? 0 : prev + 1
+    )
+  }
+
+  const previousImage = () => {
+    setCurrentImage((prev) =>
+      prev === 0 ? selectedProject.images.length - 1 : prev - 1
+    )
+  }
+
   return (
     <section id="projects" className="section">
       <div className="container">
 
-        <h2 className="section-title">Featured AI Automation & Software Projects</h2>
+        <h2 className="section-title">
+          Featured Projects
+        </h2>
 
         <p className="section-sub">
-          A collection of AI automation workflows and software applications built to streamline business operations, automate repetitive tasks and integrate modern APIs.
+          AI automation workflows and software applications built to streamline
+          business operations and solve real-world problems.
         </p>
 
+        <h3
+          style={{
+            marginTop: 50,
+            marginBottom: 30,
+            fontSize: '1.6rem',
+            color: 'var(--accent)',
+            fontWeight: 700
+          }}
+        >
+          AI Automation Projects
+        </h3>
+
         <div className="projects-grid">
-          {PROJECTS.map((p) => (
-            <ProjectCard key={p.title} project={p} />
+          {automationProjects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              automation
+              onView={() => openProject(project)}
+            />
           ))}
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: 44 }}>
+        <h3
+          style={{
+            marginTop: 70,
+            marginBottom: 30,
+            fontSize: '1.6rem',
+            color: 'var(--accent)',
+            fontWeight: 700
+          }}
+        >
+          Web Development Projects
+        </h3>
+
+        <div className="projects-grid">
+          {webProjects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+            />
+          ))}
+        </div>
+                <div style={{ textAlign: 'center', marginTop: 50 }}>
           <p
             style={{
               color: 'var(--muted)',
               marginBottom: 16,
-              fontSize: '0.95rem',
+              fontSize: '.95rem'
             }}
           >
-            More projects and automation workflows available on GitHub.
+            More projects available on GitHub
           </p>
 
           <a
@@ -124,12 +249,198 @@ export default function Projects() {
           </a>
         </div>
 
+        {selectedProject && (
+          <div
+            onClick={closeProject}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,.8)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              zIndex: 999,
+              padding: 20
+            }}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                width: '100%',
+                maxWidth: 900,
+                background: 'var(--bg2)',
+                borderRadius: 20,
+                border: '1px solid var(--border)',
+                overflow: 'hidden',
+                maxHeight: '90vh',
+                overflowY: 'auto'
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: 20
+                }}
+              >
+                <div>
+                  <span
+                    style={{
+                      color: 'var(--accent)',
+                      fontSize: '.8rem',
+                      fontWeight: 600
+                    }}
+                  >
+                    {selectedProject.category}
+                  </span>
+
+                  <h2 style={{ marginTop: 8 }}>
+                    {selectedProject.title}
+                  </h2>
+                </div>
+
+                <button
+                  onClick={closeProject}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'white'
+                  }}
+                >
+                  <X size={28} />
+                </button>
+              </div>
+
+              <div
+                style={{
+                  position: 'relative',
+                  padding: 20
+                }}
+              >
+                <img
+                  src={selectedProject.images[currentImage]}
+                  alt=""
+                  style={{
+                    width: '100%',
+                    borderRadius: 12,
+                    border: '1px solid var(--border)'
+                  }}
+                />
+
+                {selectedProject.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={previousImage}
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: 30,
+                        transform: 'translateY(-50%)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        borderRadius: '50%',
+                        width: 45,
+                        height: 45,
+                        background: 'rgba(0,0,0,.65)',
+                        color: 'white'
+                      }}
+                    >
+                      <ChevronLeft />
+                    </button>
+
+                    <button
+                      onClick={nextImage}
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        right: 30,
+                        transform: 'translateY(-50%)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        borderRadius: '50%',
+                        width: 45,
+                        height: 45,
+                        background: 'rgba(0,0,0,.65)',
+                        color: 'white'
+                      }}
+                    >
+                      <ChevronRight />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              <div
+                style={{
+                  padding: '0 24px 24px'
+                }}
+              >
+                <h3>Project Overview</h3>
+
+                <p
+                  style={{
+                    color: 'var(--muted)',
+                    lineHeight: 1.8
+                  }}
+                >
+                  {selectedProject.overview}
+                </p>
+
+                <h3 style={{ marginTop: 30 }}>
+                  Technologies Used
+                </h3>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 10,
+                    marginTop: 12
+                  }}
+                >
+                  {selectedProject.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      style={{
+                        padding: '6px 14px',
+                        borderRadius: 6,
+                        border: '1px solid var(--border)',
+                        background: 'var(--bg3)',
+                        color: 'var(--muted)'
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <h3 style={{ marginTop: 30 }}>
+                  Key Features
+                </h3>
+
+                <ul
+                  style={{
+                    marginTop: 12,
+                    color: 'var(--muted)',
+                    lineHeight: 2
+                  }}
+                >
+                  {selectedProject.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
 }
 
-function ProjectCard({ project: p }) {
+function ProjectCard({ project, automation, onView }) {
   return (
     <div
       className="card"
@@ -137,15 +448,7 @@ function ProjectCard({ project: p }) {
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
-        transition: 'border-color 0.25s, transform 0.25s',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(0,255,178,0.35)'
-        e.currentTarget.style.transform = 'translateY(-4px)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'var(--border)'
-        e.currentTarget.style.transform = ''
+        transition: '.3s'
       }}
     >
       <span
@@ -153,97 +456,99 @@ function ProjectCard({ project: p }) {
           display: 'inline-block',
           alignSelf: 'flex-start',
           padding: '4px 12px',
-          borderRadius: 99,
-          background: 'rgba(0,255,178,0.1)',
-          border: '1px solid rgba(0,255,178,0.25)',
+          borderRadius: 999,
+          background: 'rgba(0,255,178,.08)',
+          border: '1px solid rgba(0,255,178,.25)',
           color: 'var(--accent)',
-          fontSize: '0.75rem',
-          fontWeight: 600,
+          fontSize: '.75rem',
+          fontWeight: 600
         }}
       >
-        {p.category}
+        {project.category}
       </span>
 
       <h3
         style={{
-          fontSize: '1.3rem',
-          fontWeight: 800,
-          color: 'var(--text)',
+          fontSize: '1.35rem',
+          fontWeight: 700
         }}
       >
-        {p.title}
+        {project.title}
       </h3>
 
       <p
         style={{
           color: 'var(--muted)',
-          fontSize: '0.93rem',
-          lineHeight: 1.7,
-          flex: 1,
+          lineHeight: 1.8,
+          flex: 1
         }}
       >
-        {p.description}
+        {project.description}
       </p>
 
       <div
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: 8,
+          gap: 8
         }}
       >
-        {p.tech.map((t) => (
+        {project.tech.map((tech) => (
           <span
-            key={t}
+            key={tech}
             style={{
               padding: '4px 12px',
               borderRadius: 6,
-              background: 'var(--bg3)',
               border: '1px solid var(--border)',
-              color: 'var(--muted)',
-              fontSize: '0.78rem',
-              fontWeight: 500,
+              background: 'var(--bg3)',
+              fontSize: '.78rem'
             }}
           >
-            {t}
+            {tech}
           </span>
         ))}
       </div>
 
-      {(p.live || p.github) && (
-        <div
-          style={{
-            display: 'flex',
-            gap: 10,
-            flexWrap: 'wrap',
-            paddingTop: 4,
-          }}
-        >
-          {p.live && (
+      <div
+        style={{
+          display: 'flex',
+          gap: 10,
+          marginTop: 10,
+          flexWrap: 'wrap'
+        }}
+      >
+        {automation ? (
+          <button
+            onClick={onView}
+            className="btn btn-solid btn-sm"
+          >
+            <ExternalLink size={14} />
+            View Workflow
+          </button>
+        ) : (
+          <>
             <a
-              href={p.live}
+              href={project.live}
               target="_blank"
               rel="noreferrer"
               className="btn btn-solid btn-sm"
             >
-              <ExternalLink size={13} />
+              <ExternalLink size={14} />
               Live Demo
             </a>
-          )}
 
-          {p.github && (
             <a
-              href={p.github}
+              href={project.github}
               target="_blank"
               rel="noreferrer"
               className="btn btn-outline btn-sm"
             >
-              <Github size={13} />
+              <Github size={14} />
               Code
             </a>
-          )}
-        </div>
-      )}
+          </>
+        )}
+      </div>
     </div>
   )
 }
