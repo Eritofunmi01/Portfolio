@@ -2,30 +2,39 @@ import { useEffect, useRef, useState } from "react";
 
 const AI_SKILLS = [
   {
-    category: "AI Automation",
+    category: "AI Automation Platforms",
     skills: [
-      { name: "n8n Workflow Automation", pct: 90 },
-      { name: "OpenAI API Integration", pct: 88 },
-      { name: "AI Agents", pct: 82 },
-      { name: "REST APIs", pct: 90 },
+      { name: "n8n", pct: 90 },
+      { name: "Make.com", pct: 85 },
+      { name: "Zapier", pct: 88 },
+      { name: "VAPI", pct: 78 },
     ],
   },
   {
-    category: "Workflow Engineering",
+    category: "AI & Workflow Development",
     skills: [
+      { name: "AI Workflow Automation", pct: 90 },
+      { name: "AI Agent Development", pct: 82 },
+      { name: "OpenAI API Integration", pct: 85 },
+      { name: "Prompt Engineering", pct: 82 },
+    ],
+  },
+  {
+    category: "API Integration & Automation",
+    skills: [
+      { name: "REST APIs", pct: 88 },
       { name: "Webhooks", pct: 90 },
-      { name: "JavaScript", pct: 82 },
-      { name: "JSON Data Processing", pct: 90 },
-      { name: "Regex", pct: 72 },
+      { name: "HTTP Requests", pct: 90 },
+      { name: "JSON Data Handling", pct: 92 },
     ],
   },
   {
-    category: "Automation Stack",
+    category: "Automation Ecosystem",
     skills: [
-      { name: "Airtable", pct: 80 },
-      { name: "Supabase", pct: 78 },
-      { name: "PostgreSQL", pct: 70 },
-      { name: "Email Automation", pct: 90 },
+      { name: "Airtable", pct: 85 },
+      { name: "Google Sheets", pct: 80 },
+      { name: "Gmail Automation", pct: 90 },
+      { name: "Telegram Bot Integration", pct: 85 },
     ],
   },
 ];
@@ -62,18 +71,22 @@ const WEB_SKILLS = [
 
 const AI_TAGS = [
   "n8n",
+  "Make.com",
+  "Zapier",
+  "VAPI",
   "OpenAI",
   "AI Agents",
+  "Prompt Engineering",
   "Workflow Automation",
   "REST APIs",
   "Webhooks",
-  "JavaScript",
-  "JSON",
-  "Regex",
+  "HTTP Requests",
+  "Gmail",
   "Airtable",
-  "Supabase",
-  "PostgreSQL",
+  "Google Sheets",
+  "Telegram",
   "Email Automation",
+  "JSON"
 ];
 
 const WEB_TAGS = [
