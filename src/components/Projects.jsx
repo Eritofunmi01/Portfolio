@@ -20,9 +20,9 @@ const automationProjects = [
     ],
 
     images: [
-      '/Img/lead-workflow.png',
-      '/Img/lead-telegram.png',
-      '/Img/lead-email.png'
+      '/Img/n8n.png',
+      '/Img/tel.png',
+      '/Img/link.png'
     ],
 
     overview:
@@ -54,7 +54,7 @@ const automationProjects = [
       'JavaScript'
     ],
 
-    images: ['/Img/gym-renewal.png'],
+    images: ['/Img/Email Automation.png'],
 
     overview:
       'Developed to remove manual subscription management by automating reminders, membership updates and customer notifications.',
@@ -84,7 +84,7 @@ const automationProjects = [
       'JSON'
     ],
 
-    images: ['/Img/email-routing.png'],
+    images: ['/Img/As2.png'],
 
     overview:
       'Created to eliminate manual email sorting while improving response times and ensuring every enquiry reaches the correct department.',
