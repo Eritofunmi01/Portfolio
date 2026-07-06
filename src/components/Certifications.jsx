@@ -29,7 +29,7 @@ const CERTIFICATES = [
     title:       'AI and Automation',
     date:        '05 July 2026',
     description: 'Having satisfied all programme requirements, in Zapier N8N, and Make.com for all automation and AI integration, I have been awarded this certificate.',
-    image:       '/Img/TS Cert.jpeg',
+    image:       '/Img/TS Cert..jpeg',
   },
 ]
 // ──────────────────────────────────────────────────────────────────────────────
