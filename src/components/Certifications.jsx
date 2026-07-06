@@ -24,13 +24,13 @@ const CERTIFICATES = [
     description: 'Basic computer literacy, Microsoft Office proficiency, internet navigation, and foundational IT skills for workplace readiness.',
     image:       '/Img/c3.jpeg',
   },
-//   {
-//     issuer:      'Coursera',
-//     title:       'JavaScript Algorithms & Data Structures',
-//     date:        'August 2023',
-//     description: 'Deep dive into algorithms, data structures, debugging, and object-oriented programming in JavaScript.',
-//     // image:       '/certs/coursera-js.png',
-//   },
+  {
+    issuer:      'TS Academy',
+    title:       'AI and Automation',
+    date:        '05 July 2026',
+    description: 'Having satisfied all programme requirements, in Zapier N8N, and Make.com for all automation and AI integration, I have been awarded this certificate.',
+    image:       '/Img/TS Cert.jpeg',
+  },
 ]
 // ──────────────────────────────────────────────────────────────────────────────
 
