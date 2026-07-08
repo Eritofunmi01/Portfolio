@@ -173,7 +173,7 @@ export default function About() {
               <a href="#projects" className="btn btn-solid">
                 View My Work
               </a>
-              <a href="/Tofunmi_CV_.pdf" download className="btn btn-outline">
+              <a href="/Sodiya_Tofunmi_Israel_CV.docx" download className="btn btn-outline">
                 Download CV
               </a>
             </div>
