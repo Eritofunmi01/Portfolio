@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedinIn, FaXTwitter, FaWhatsapp } from 'react-icons/fa6'
 
 const SOCIALS = [
   { icon: FaGithub,     href: 'https://github.com/Eritofunmi01',                       label: 'GitHub'    },
-  { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/sodiya-tofunmi-644737379',  label: 'LinkedIn'  },
+  { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/tofunmi-s-israel-65545441a/',  label: 'LinkedIn'  },
   { icon: FaXTwitter,   href: 'https://x.com/The_YoungDev',                            label: 'X/Twitter' },
   { icon: FaWhatsapp,   href: 'https://wa.me/2348069062202',                           label: 'WhatsApp'  },
 ]

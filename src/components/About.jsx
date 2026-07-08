@@ -43,7 +43,7 @@ export default function About() {
             <div style={{ position: "relative", display: "inline-block" }}>
               <img
                 src="/Img/frame ass.png"
-                alt="Sodiya Tofunmi"
+                alt="Sodiya Tofunmi Israel"
                 style={{
                   width: 250,
                   height: 290,
@@ -104,7 +104,7 @@ export default function About() {
               }}
             >
               I'm{" "}
-              <strong style={{ color: "var(--accent)" }}>Sodiya Tofunmi</strong>
+              <strong style={{ color: "var(--accent)" }}>Sodiya Tofunmi Israel</strong>
               , an AI Automation engineer and full-stack developer based in
               Lagos, Nigeria. I started coding in early 2024, then went into AI
               automation in early 2026 making my understanding of codes and AI
