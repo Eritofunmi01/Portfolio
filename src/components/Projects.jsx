@@ -78,14 +78,15 @@ const automationProjects = [
 
   tech: [
     'n8n',
-    'OpenAI GPT',
+    'Artificial Intelligence',
     'Airtable',
     'JavaScript',
     'Email Automation',
-    'Workflow Automation'
+    'Workflow Automation',
+    'Recruitment Automation'
   ],
 
-  images: ['video/lv_0_20260712153000.mp4'],
+  video: ['video/lv_0_20260712153000.mp4'],
 
   overview:
     'The system replaces manual CV reviews with an automated AI hiring assistant capable of screening, ranking, tracking, and presenting the most qualified candidates in real time.',
