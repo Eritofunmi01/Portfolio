@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ExternalLink, Github, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { video } from 'framer-motion/client'
 
 const automationProjects = [
   {
@@ -86,7 +87,7 @@ const automationProjects = [
     'Recruitment Automation'
   ],
 
-  // video: [public/video/lv_0_20260712153000.mp4],  
+  video: ['video/lv_0_20260712153000.mp4'],  
 
   overview:
     'The system replaces manual CV reviews with an automated AI hiring assistant capable of screening, ranking, tracking, and presenting the most qualified candidates in real time.',
@@ -132,6 +133,7 @@ const automationProjects = [
     ]
   }
 ]
+
 
 const webProjects = [
   {
