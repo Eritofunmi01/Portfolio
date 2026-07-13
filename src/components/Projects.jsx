@@ -87,8 +87,12 @@ const automationProjects = [
     'Recruitment Automation'
   ],
 
-    images: ['/Img/Email Automation.png'],
-  video: ['/video/lv_0_20260712153000.mp4'],  
+media: [
+  {
+    type: 'video',
+    src: '/video/lv_0_20260712153000.mp4'
+  }
+],
 
   overview:
     'The system replaces manual CV reviews with an automated AI hiring assistant capable of screening, ranking, tracking, and presenting the most qualified candidates in real time.',
