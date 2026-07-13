@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { ExternalLink, Github, X, ChevronLeft, ChevronRight } from 'lucide-react'
-import { video } from 'framer-motion/client'
 
 const automationProjects = [
   {
