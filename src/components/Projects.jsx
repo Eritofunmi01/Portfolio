@@ -87,6 +87,7 @@ const automationProjects = [
     'Recruitment Automation'
   ],
 
+  images: ['/Img/recruitment-thumbnail.png'],
   video: ['video/lv_0_20260712153000.mp4'],  
 
   overview:
