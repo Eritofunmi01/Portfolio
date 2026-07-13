@@ -68,6 +68,40 @@ const automationProjects = [
     ]
   },
 
+ {
+  category: 'AI Recruitment Automation',
+
+  title: 'Enterprise AI Recruitment & Talent Ranking Platform',
+
+  description:
+    'Designed and built an AI-driven recruitment platform that evaluates incoming applications, extracts candidate data from CVs, scores candidates against predefined hiring criteria, maintains a live Top 10 leaderboard, and automatically alerts HR teams whenever ranking changes occur.',
+
+  tech: [
+    'n8n',
+    'OpenAI GPT',
+    'Airtable',
+    'JavaScript',
+    'Email Automation',
+    'Workflow Automation'
+  ],
+
+  images: ['video/lv_0_20260712153000.mp4'],
+
+  overview:
+    'The system replaces manual CV reviews with an automated AI hiring assistant capable of screening, ranking, tracking, and presenting the most qualified candidates in real time.',
+
+  features: [
+    'AI CV Analysis',
+    'Candidate Qualification Checks',
+    'Automated Scoring System',
+    'Real-Time Top 10 Ranking',
+    'Candidate Change Detection',
+    'Automated Dashboard Updates',
+    'HR Notification Workflow',
+    'Centralized Candidate Database'
+  ]
+},
+
   {
     category: 'Workflow Automation',
 
