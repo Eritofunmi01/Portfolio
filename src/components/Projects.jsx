@@ -186,6 +186,28 @@ const webProjects = [
   }
 ]
 
+// Normalizes a project's visual content into a single array of
+// { type: 'image' | 'video', src } objects, regardless of whether the
+// project defines `images` (array of strings) or `media` (array of objects).
+// This is what was missing before — some projects only had `media`, so
+// `selectedProject.images` was undefined and crashed the modal.
+function getProjectMedia(project) {
+  if (!project) return []
+
+  if (Array.isArray(project.media) && project.media.length > 0) {
+    return project.media.map((m) => ({
+      type: m.type === 'video' ? 'video' : 'image',
+      src: m.src
+    }))
+  }
+
+  if (Array.isArray(project.images) && project.images.length > 0) {
+    return project.images.map((src) => ({ type: 'image', src }))
+  }
+
+  return []
+}
+
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null)
   const [currentImage, setCurrentImage] = useState(0)
@@ -200,15 +222,19 @@ export default function Projects() {
     setCurrentImage(0)
   }
 
+  const media = getProjectMedia(selectedProject)
+
   const nextImage = () => {
+    if (media.length === 0) return
     setCurrentImage((prev) =>
-      prev === selectedProject.images.length - 1 ? 0 : prev + 1
+      prev === media.length - 1 ? 0 : prev + 1
     )
   }
 
   const previousImage = () => {
+    if (media.length === 0) return
     setCurrentImage((prev) =>
-      prev === 0 ? selectedProject.images.length - 1 : prev - 1
+      prev === 0 ? media.length - 1 : prev - 1
     )
   }
 
@@ -354,64 +380,78 @@ export default function Projects() {
                 </button>
               </div>
 
-              <div
-                style={{
-                  position: 'relative',
-                  padding: 20
-                }}
-              >
-                <img
-                  src={selectedProject.images[currentImage]}
-                  alt=""
+              {media.length > 0 && (
+                <div
                   style={{
-                    width: '100%',
-                    borderRadius: 12,
-                    border: '1px solid var(--border)'
+                    position: 'relative',
+                    padding: 20
                   }}
-                />
-
-                {selectedProject.images.length > 1 && (
-                  <>
-                    <button
-                      onClick={previousImage}
+                >
+                  {media[currentImage].type === 'video' ? (
+                    <video
+                      src={media[currentImage].src}
+                      controls
                       style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: 30,
-                        transform: 'translateY(-50%)',
-                        border: 'none',
-                        cursor: 'pointer',
-                        borderRadius: '50%',
-                        width: 45,
-                        height: 45,
-                        background: 'rgba(0,0,0,.65)',
-                        color: 'white'
+                        width: '100%',
+                        borderRadius: 12,
+                        border: '1px solid var(--border)'
                       }}
-                    >
-                      <ChevronLeft />
-                    </button>
-
-                    <button
-                      onClick={nextImage}
+                    />
+                  ) : (
+                    <img
+                      src={media[currentImage].src}
+                      alt=""
                       style={{
-                        position: 'absolute',
-                        top: '50%',
-                        right: 30,
-                        transform: 'translateY(-50%)',
-                        border: 'none',
-                        cursor: 'pointer',
-                        borderRadius: '50%',
-                        width: 45,
-                        height: 45,
-                        background: 'rgba(0,0,0,.65)',
-                        color: 'white'
+                        width: '100%',
+                        borderRadius: 12,
+                        border: '1px solid var(--border)'
                       }}
-                    >
-                      <ChevronRight />
-                    </button>
-                  </>
-                )}
-              </div>
+                    />
+                  )}
+
+                  {media.length > 1 && (
+                    <>
+                      <button
+                        onClick={previousImage}
+                        style={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: 30,
+                          transform: 'translateY(-50%)',
+                          border: 'none',
+                          cursor: 'pointer',
+                          borderRadius: '50%',
+                          width: 45,
+                          height: 45,
+                          background: 'rgba(0,0,0,.65)',
+                          color: 'white'
+                        }}
+                      >
+                        <ChevronLeft />
+                      </button>
+
+                      <button
+                        onClick={nextImage}
+                        style={{
+                          position: 'absolute',
+                          top: '50%',
+                          right: 30,
+                          transform: 'translateY(-50%)',
+                          border: 'none',
+                          cursor: 'pointer',
+                          borderRadius: '50%',
+                          width: 45,
+                          height: 45,
+                          background: 'rgba(0,0,0,.65)',
+                          color: 'white'
+                        }}
+                      >
+                        <ChevronRight />
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
 
               <div
                 style={{
